@@ -81,15 +81,15 @@ public class Tilføj {
 		cmb.getItems().addAll(liste);
 
 		// Indkøbsdato
-		Label indkøbsdato = new Label("Indkøbsdato:");
-		DatePicker datePicker = new DatePicker();
-		datePicker.setValue(LocalDate.of(2019, 01, 11));
-		datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-		datePicker.setShowWeekNumbers(true);
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-		HBox indkøbsdatobox = new HBox();
-		indkøbsdatobox.getChildren().addAll(indkøbsdato, datePicker);
-		indkøbsdatobox.setSpacing(10);
+//		Label indkøbsdato = new Label("Indkøbsdato:");
+//		DatePicker datePicker = new DatePicker();
+//		datePicker.setValue(LocalDate.of(2019, 01, 11));
+//		datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+//		datePicker.setShowWeekNumbers(true);
+//		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+//		HBox indkøbsdatobox = new HBox();
+//		indkøbsdatobox.getChildren().addAll(indkøbsdato, datePicker);
+//		indkøbsdatobox.setSpacing(10);
 
 		// Skal have fixes Dato-format
 
@@ -106,7 +106,7 @@ public class Tilføj {
 		GridPane textFields = new GridPane();
 		textFields.add(varenavnbox, 0, 0);
 		textFields.add(cmb, 0, 1);
-		textFields.add(indkøbsdatobox, 0, 2);
+//		textFields.add(indkøbsdatobox, 0, 2);
 		textFields.add(notebox, 0, 3);
 
 		BorderPane layout = new BorderPane();
