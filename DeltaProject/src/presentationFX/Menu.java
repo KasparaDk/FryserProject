@@ -25,7 +25,7 @@ public class Menu {
 	public void start(Stage stage) {
 
 		stage.setTitle("Januar Projekt");
-		stage.setWidth(450);
+		stage.setWidth(1500);
 		stage.setHeight(550);
 
 		BorderPane borderPaneStart = new BorderPane();
