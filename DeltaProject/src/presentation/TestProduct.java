@@ -4,7 +4,7 @@ import java.util.List;
 
 import logic.DatabaseConnection;
 import logic.Product;
-import logic.ProductController2;
+import logic.ProductController;
 import logic.ProductType;
 
 public class TestProduct {
@@ -14,7 +14,7 @@ public class TestProduct {
 	Product test2 = new Product(5, "Kylling", "15/02/2018", "2000g", ProductType.CHICKEN, "Midterste hylde");
 	Product testupdate = new Product(2, "Update", "01/01/3019", "Update", ProductType.FRUIT, "En Update");
 	
-	ProductController2 productController = new ProductController2(DatabaseConnection.newConnection("JanProjectDB"));
+	ProductController productController = new ProductController(DatabaseConnection.newConnection("JanProjectDB"));
 	
 	public void add() {
 		productController.addProduct(test2);
