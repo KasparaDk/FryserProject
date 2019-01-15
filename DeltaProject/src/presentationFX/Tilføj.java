@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -21,28 +22,14 @@ import javafx.stage.Stage;
 public class Tilføj {
 
 	// Liste over varetyper
-	private static final String[] liste = { "Abacate", "Abacaxi", "Ameixa", "Amora", "Araticum", "Atemoia", "Avocado",
-			"Banana prata", "Caju", "Cana descascada", "Caqui", "Caqui Fuyu", "Carambola", "Cereja", "Coco verde",
-			"Figo", "Figo da Índia", "Framboesa", "Goiaba", "Graviola", "Jabuticaba", "Jambo", "Jambo rosa", "Jambolão",
-			"Kino (Kiwano)", "Kiwi", "Laranja Bahia", "Laranja para suco", "Laranja seleta", "Laranja serra d’água",
-			"Laranjinha kinkan", "Lichia", "Lima da pérsia", "Limão galego", "Limão Taiti", "Maçã argentina",
-			"Maçã Fuji", "Maçã gala", "Maçã verde", "Mamão formosa", "Mamão Havaí", "Manga espada", "Manga Haden",
-			"Manga Palmer", "Manga Tommy", "Manga Ubá", "Mangostim", "Maracujá doce", "Maracujá para suco", "Melancia",
-			"Melancia sem semente", "Melão", "Melão Net", "Melão Orange", "Melão pele de sapo", "Melão redinha",
-			"Mexerica carioca", "Mexerica Murcote", "Mexerica Ponkan", "Mirtilo", "Morango", "Nectarina",
-			"Nêspera ou ameixa amarela", "Noni", "Pera asiática", "Pera portuguesa", "Pêssego", "Physalis", "Pinha",
-			"Pitaia", "Romã", "Tamarilo", "Tamarindo", "Uva red globe", "Uva rosada", "Uva Rubi", "Uva sem semente",
-			"Abobora moranga", "Abobrinha italiana", "Abobrinha menina", "Alho", "Alho descascado",
-			"Batata baroa ou cenoura amarela", "Batata bolinha", "Batata doce", "Batata inglesa", "Batata yacon",
-			"Berinjela", "Beterraba", "Cebola bolinha", "Cebola comum", "Cebola roxa", "Cenoura", "Cenoura baby",
-			"Couve flor", "Ervilha", "Fava", "Gengibre", "Inhame", "Jiló", "Massa de alho", "Maxixe", "Milho",
-			"Pimenta biquinho fresca", "Pimenta de bode fresca", "Pimentão amarelo", "Pimentão verde",
-			"Pimentão vermelho", "Quiabo", "Repolho", "Repolho roxo", "Tomate cereja", "Tomate salada",
-			"Tomate sem acidez", "Tomate uva", "Vagem", "Agrião", "Alcachofra", "Alface", "Alface americana",
-			"Almeirão", "Brócolis", "Broto de alfafa", "Broto de bambu", "Broto de feijão", "Cebolinha", "Coentro",
-			"Couve", "Espinafre", "Hortelã", "Mostarda", "Rúcula", "Salsa", "Ovos brancos", "Ovos de codorna",
-			"Ovos vermelhos" };
-
+	private static final String[] liste = { "Fisk - Fed", "Fisk - Mager", "Fisk - Hakket", "Frugt",
+											"Grøntsager",
+											"Hakkekød",
+											"Kalvekød", "Kylling", 
+											"Lam",
+											"Pølser",
+											"Røget kød",
+											"Svinekød - Fed", "Svinekød - Mager" };
 
 	public void start(Stage stage) {
 		Stage popUp = new Stage();
@@ -63,9 +50,14 @@ public class Tilføj {
 			popUp.hide();
 		});
 
-		// VBox til knapperne
-		VBox buttonVBox = new VBox();
-		buttonVBox.getChildren().addAll(tilføj, annuller);
+		// BorderPane til knapperne
+		BorderPane buttonPane = new BorderPane();
+		buttonPane.setPadding(new Insets(20, 50, 20 ,50));
+		buttonPane.setLeft(annuller);
+		buttonPane.setRight(tilføj);
+		
+//		VBox buttonVBox = new VBox();
+//		buttonVBox.getChildren().addAll(tilføj, annuller);
 
 		// Teksfelterne
 		// Varenavn
@@ -81,14 +73,17 @@ public class Tilføj {
 		cmb.getItems().addAll(liste);
 
 		// Indkøbsdato
-		Label indkøbsdato = new Label("Indkøbsdato:");
-		DatePicker datePicker = new DatePicker();
-		datePicker.setValue(LocalDate.of(2019, 01, 11));
-		datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-		datePicker.setShowWeekNumbers(true);
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+		Label indkøbsdatolbl = new Label("Indkøbsdato:");
+		TextField indkøbsdatotxt = new TextField();
+		//Gør tekstfeltet uneditable
+		indkøbsdatotxt.setEditable(false);
+		indkøbsdatotxt.setMouseTransparent(true);
+		indkøbsdatotxt.setFocusTraversable(false);
+		String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		indkøbsdatotxt.setText(date);
+		indkøbsdatotxt.setStyle("-fx-text-inner-color: grey;");
 		HBox indkøbsdatobox = new HBox();
-		indkøbsdatobox.getChildren().addAll(indkøbsdato, datePicker);
+		indkøbsdatobox.getChildren().addAll(indkøbsdatolbl, indkøbsdatotxt);
 		indkøbsdatobox.setSpacing(10);
 
 		// Skal have fixes Dato-format
@@ -112,7 +107,7 @@ public class Tilføj {
 		BorderPane layout = new BorderPane();
 
 		// Knapper til højre, textfelter i center
-		layout.setRight(buttonVBox);
+		layout.setBottom(buttonPane);
 		layout.setCenter(textFields);
 
 		Scene scene = new Scene(layout);
