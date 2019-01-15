@@ -12,13 +12,12 @@ public class TestProduct {
 //	Product test = new Product(0, "lort", "på", "09/03/2034", ProductType.BEEF, "godt");
 	Product test = new Product(0, "Pølse", "15/09/2018", "500g",ProductType.SAUSAGE, "Nederste hylde");
 	Product test2 = new Product(5, "Kylling", "15/02/2018", "2000g", ProductType.CHICKEN, "Midterste hylde");
-	Product test3 = new Product(0, "RøgetFisk", "01/01/2019", "100g", ProductType.SMOKEDFISH, "En hylde");
 	Product testupdate = new Product(2, "Update", "01/01/3019", "Update", ProductType.FRUIT, "En Update");
 	
 	ProductController2 productController = new ProductController2(DatabaseConnection.newConnection("JanProjectDB"));
 	
 	public void add() {
-		productController.addProduct(test3);
+		productController.addProduct(test2);
 
 	}
 	public void getAll() {
