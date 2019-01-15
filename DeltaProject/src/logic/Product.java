@@ -83,7 +83,7 @@ public class Product {
 
 		//		if (type.getDays() > 14 && LocalDate.now().isAfter(expireDate.minusDays(14))) {
 //			System.out.println(product.getName() + " er ved at blive for gamle!" + "\nDu har ca. 14 dage før de er ubrugelige");
-
+//
 //		}
 		if (type.getDays() > 3 && LocalDate.now().isAfter(expireDate.minusDays(3))) {
 			System.out.println(
