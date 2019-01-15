@@ -8,14 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductController2 {
+public class ProductController {
 	
 	private Connection connection;
 	private ResultSet resultSet;
 	private int updateQuery = 0;
 	
 
-	public ProductController2(Connection connection) {
+	public ProductController(Connection connection) {
 		this.connection = connection;
 	}
 
