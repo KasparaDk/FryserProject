@@ -107,6 +107,8 @@ public class AddProductPopUp {
 		textFields.add(notebox, 0, 3);
 
 		BorderPane layout = new BorderPane();
+		layout.setMargin(textFields, new Insets(20,20,20,20));
+		layout.setPadding(new Insets(20, 20, 10, 20));
 
 		// Knapper til højre, textfelter i center
 		layout.setBottom(buttonPane);
