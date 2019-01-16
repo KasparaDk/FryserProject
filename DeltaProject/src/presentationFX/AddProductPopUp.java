@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import presentationFX.Dropdown;
 
-public class AddProductPupUp {
+public class AddProductPopUp {
 
 	// Liste over varetyper
 	private static final String[] liste = { "Fisk - Fed", "Fisk - Mager", "Fisk - Hakket", "Frugt",

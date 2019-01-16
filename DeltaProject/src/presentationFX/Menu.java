@@ -103,7 +103,7 @@ public class Menu {
 	}
 
 	private void addProduct() {
-		AddProductPupUp tilføj  = new AddProductPupUp();
+		AddProductPopUp tilføj  = new AddProductPopUp();
 		tilføj.start(new Stage());
 	}
 
