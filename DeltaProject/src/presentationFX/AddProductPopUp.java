@@ -3,6 +3,7 @@ package presentationFX;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -31,8 +33,9 @@ public class AddProductPopUp {
 	public void start(Stage stage) {
 		Stage popUp = new Stage();
 		popUp.setTitle("Tilføj Vare");
-		popUp.setHeight(360);
-		popUp.setWidth(500);
+		popUp.setHeight(300);
+		popUp.setWidth(400);
+		popUp.setResizable(false);
 
 		// Knapperne
 		Button tilføj = new Button();
@@ -60,18 +63,24 @@ public class AddProductPopUp {
 		// Varenavn
 		Label varenavnlbl = new Label("Varenavn:");
 		TextField varenavntxt = new TextField();
+		varenavntxt.setMaxWidth(100);
 		HBox varenavnbox = new HBox();
 		varenavnbox.getChildren().addAll(varenavnlbl, varenavntxt);
-		varenavnbox.setSpacing(10);
+//		varenavnbox.setSpacing(10);
 
+		//Varetype
+		Label varetypelbl = new Label("Varetype:");
 		// Dropdown menu med varetyper
 		ComboBox<String> cmb = new ComboBox<>();
 		cmb.setTooltip(new Tooltip());
 		cmb.getItems().addAll(liste);
+		HBox varetypebox = new HBox();
+		varetypebox.getChildren().addAll(varetypelbl, cmb);
 
 		// Indkøbsdato
 		Label indkøbsdatolbl = new Label("Indkøbsdato:");
 		TextField indkøbsdatotxt = new TextField();
+		indkøbsdatotxt.setMaxWidth(100);
 		//Gør tekstfeltet uneditable
 		indkøbsdatotxt.setEditable(false);
 		indkøbsdatotxt.setMouseTransparent(true);
@@ -81,13 +90,11 @@ public class AddProductPopUp {
 		indkøbsdatotxt.setStyle("-fx-text-inner-color: grey;");
 		HBox indkøbsdatobox = new HBox();
 		indkøbsdatobox.getChildren().addAll(indkøbsdatolbl, indkøbsdatotxt);
-		indkøbsdatobox.setSpacing(10);
 
 		// Note
 		Label notelbl = new Label("Note:");
 		TextField notetxt = new TextField();
-		notetxt.setAlignment(Pos.TOP_LEFT);
-		notetxt.setPrefWidth(300);
+		notetxt.setMaxWidth(200);
 		
 		HBox notebox = new HBox();
 		notebox.getChildren().addAll(notelbl, notetxt);
@@ -95,13 +102,15 @@ public class AddProductPopUp {
 
 		// GridPane med textfelterne
 		GridPane textFields = new GridPane();
+		
 		textFields.add(varenavnbox, 0, 0);
-		textFields.add(cmb, 0, 1);
+		textFields.add(varetypebox, 0, 1);
 		textFields.add(indkøbsdatobox, 0, 2);
 		textFields.add(notebox, 0, 3);
+		textFields.setHgap(20);
+		textFields.setVgap(20);
 
 		BorderPane layout = new BorderPane();
-		layout.setMargin(textFields, new Insets(20,20,20,20));
 		layout.setPadding(new Insets(20, 20, 10, 20));
 
 		// Knapper til højre, textfelter i center
