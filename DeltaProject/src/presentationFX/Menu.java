@@ -44,7 +44,7 @@ public class Menu {
 		textSearch.setAlignment(Pos.CENTER);
 		textSearch.setPromptText("Søg efter en vare");
 		textSearch.setFocusTraversable(false);
-		textSearch.setStyle("-fx-padding: 10 750 10 750;");
+		textSearch.setStyle("-fx-padding: 10 100 10 100;");
 		hboxSearch.setAlignment(Pos.CENTER);
 		hboxSearch.getChildren().addAll(textSearch);
 
