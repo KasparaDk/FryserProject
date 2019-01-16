@@ -12,7 +12,7 @@ public class TestProduct {
 	
 //	Product test = new Product(0, "lort", "på", "09/03/2034", ProductType.BEEF, "godt");
 	Product test = new Product(0, "Pølse", "15/09/2018", "500g",ProductType.SAUSAGE, "Nederste hylde");
-	Product test2 = new Product(0, "Kylling", "15/02/2018", "2000g", ProductType.CHICKEN, "Midterste hylde");
+	Product test2 = new Product(0, "Kylling", "15/02/2016", "2000g", ProductType.CHICKEN, "Midterste hylde");
 	Product testupdate = new Product(2, "Update", "01/01/3019", "Update", ProductType.FRUIT, "En Update");
 	
 	ProductController productController = new ProductController(DatabaseConnection.newConnection("JanProjectDB"));
