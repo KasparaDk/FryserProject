@@ -2,7 +2,6 @@ package logic;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import logic.Product;
 
 public class CheckDate {
 
@@ -10,12 +9,10 @@ public class CheckDate {
 		// Convert string to LocalDate
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate localDateObj = LocalDate.parse(product.getPurchaseDate(), dateTimeFormatter);
+		
+		// Opretter et expireDate ud fra den konveterede LocalDate fra ProductType klassen
 		LocalDate expireDate = localDateObj.plusDays(product.getTheType().getDays());
 
-		//		if (type.getDays() > 14 && LocalDate.now().isAfter(expireDate.minusDays(14))) {
-//			System.out.println(product.getName() + " er ved at blive for gamle!" + "\nDu har ca. 14 dage før de er ubrugelige");
-//
-//		}
 		// Hvis der er 3 dage eller under før det bliver for gammelt
 		if (product.getTheType().getDays() > 3 && LocalDate.now().isAfter(expireDate.minusDays(3))) {
 			System.out.println(
