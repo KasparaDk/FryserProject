@@ -59,11 +59,6 @@ public class Menu {
 		btnRemove.setFont(Font.font("Serif", FontWeight.BOLD, 30));
 		// btnRemove.setOnAction(e -> Slet());
 
-		Button btnUpdate = new Button("Opdater vare");
-		btnUpdate.setPrefSize(300, 100);
-		btnUpdate.setFont(Font.font("Serif", FontWeight.BOLD, 30));
-		// btnUpdate.setOnAction(e -> opdater());
-
 		// vores tableview
 		tableJanProject.setEditable(true);
 
@@ -96,7 +91,6 @@ public class Menu {
 		borderPaneStart.setTop(hboxSearch);
 		gridRight.add(btnCreate, 2, 0);
 		gridRight.add(btnRemove, 2, 1);
-		gridRight.add(btnUpdate, 2, 2);
 
 		stage.setScene(start);
 		stage.show();
