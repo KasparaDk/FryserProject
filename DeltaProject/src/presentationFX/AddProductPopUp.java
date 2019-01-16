@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AddProductPopUp {
@@ -91,6 +92,12 @@ public class AddProductPopUp {
 		HBox indkøbsdatobox = new HBox();
 		indkøbsdatobox.getChildren().addAll(indkøbsdatolbl, indkøbsdatotxt);
 
+		//Mængde
+		Label mængdelbl = new Label("Mændge:");
+		TextField mængdetxt = new TextField();
+		HBox mængdebox = new HBox();
+		mængdebox.getChildren().addAll(mængdelbl, mængdetxt);
+		
 		// Note
 		Label notelbl = new Label("Note:");
 		TextField notetxt = new TextField();
@@ -101,14 +108,16 @@ public class AddProductPopUp {
 		notebox.setSpacing(10);
 
 		// GridPane med textfelterne
-		GridPane textFields = new GridPane();
+		VBox textFields = new VBox();
 		
-		textFields.add(varenavnbox, 0, 0);
-		textFields.add(varetypebox, 0, 1);
-		textFields.add(indkøbsdatobox, 0, 2);
-		textFields.add(notebox, 0, 3);
-		textFields.setHgap(20);
-		textFields.setVgap(20);
+		textFields.getChildren().addAll(varenavnbox, varetypebox, indkøbsdatobox, mængdebox, notebox);
+		
+//		textFields.add(varenavnbox, 0, 0);
+//		textFields.add(varetypebox, 0, 1);
+//		textFields.add(indkøbsdatobox, 0, 2);
+//		textFields.add(notebox, 0, 3);
+//		textFields.setHgap(20);
+//		textFields.setVgap(20);
 
 		BorderPane layout = new BorderPane();
 		layout.setPadding(new Insets(20, 20, 10, 20));
@@ -124,7 +133,3 @@ public class AddProductPopUp {
 		new Dropdown<String>(cmb);
 	}
 }
-
-
-
-
