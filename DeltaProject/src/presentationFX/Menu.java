@@ -3,6 +3,8 @@ package presentationFX;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,7 +22,7 @@ public class Menu {
 	TextField tf;
 	Stage stage;
 	Scene start;
-	private TableView tableJanProject = new TableView();
+	public TableView tableJanProject = new TableView();
 
 	public void start(Stage stage) {
 
@@ -40,7 +42,7 @@ public class Menu {
 
 		// vores søgefelt
 		TextField textSearch = new TextField();
-		textSearch.setMaxSize(2000, 2000);
+//		textSearch.setMaxSize(2000, 2000);
 		textSearch.setAlignment(Pos.CENTER);
 		textSearch.setPromptText("Søg efter en vare");
 		textSearch.setFocusTraversable(false);
@@ -59,6 +61,11 @@ public class Menu {
 		btnRemove.setFont(Font.font("Serif", FontWeight.BOLD, 30));
 		// btnRemove.setOnAction(e -> Slet());
 
+		Button btnUpdate = new Button("Opdater vare");
+		btnUpdate.setPrefSize(300, 100);
+		btnUpdate.setFont(Font.font("Serif", FontWeight.BOLD, 30));
+		// btnUpdate.setOnAction(e -> Opdater());
+		
 		// vores tableview
 		tableJanProject.setEditable(true);
 
@@ -67,6 +74,7 @@ public class Menu {
 		TableColumn expirationCol = new TableColumn("Udløbsdato");
 		TableColumn typeCol = new TableColumn("Type");
 		TableColumn noteCol = new TableColumn("Note");
+		TableColumn amountCol = new TableColumn("Mængde");
 
 		nameCol.setText("Navn");
 		nameCol.setCellValueFactory(new PropertyValueFactory("Navn"));
@@ -78,8 +86,10 @@ public class Menu {
 		typeCol.setCellValueFactory(new PropertyValueFactory("Type"));
 		noteCol.setText("Note");
 		noteCol.setCellValueFactory(new PropertyValueFactory("Note"));
+		amountCol.setText("Mængde");
+		amountCol.setCellValueFactory(new PropertyValueFactory("Mængde"));
 
-		tableJanProject.getColumns().addAll(nameCol, purchaseCol, expirationCol, typeCol, noteCol);
+		tableJanProject.getColumns().addAll(nameCol, purchaseCol, expirationCol, typeCol, amountCol, noteCol);
 
 		tableJanProject.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -91,11 +101,28 @@ public class Menu {
 		borderPaneStart.setTop(hboxSearch);
 		gridRight.add(btnCreate, 2, 0);
 		gridRight.add(btnRemove, 2, 1);
+		gridRight.add(btnUpdate, 2, 2);
 
 		stage.setScene(start);
 		stage.show();
 	}
 
+//	private void DeleteRow() {
+//	    int selectedIndex = tableJanProject.getSelectionModel().getSelectedIndex();
+//	    if (selectedIndex >= 0) {
+//	        tableJanProject.getItems().remove(selectedIndex);
+//	    } else {
+//	        // Nothing selected.
+//	        Alert alert = new Alert(AlertType.WARNING);
+//	//        alert.initOwner( start.getPrimaryStage());
+//	        alert.setTitle("No Selection");
+//	        alert.setHeaderText("No Person Selected");
+//	        alert.setContentText("Please select a person in the table.");
+//
+//	        alert.showAndWait();
+//	    }
+//	}
+	
 	private void addProduct() {
 		AddProductPopUp tilføj  = new AddProductPopUp();
 		tilføj.start(new Stage());
