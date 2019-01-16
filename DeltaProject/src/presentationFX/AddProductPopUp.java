@@ -109,7 +109,7 @@ public class AddProductPopUp {
 
 		// GridPane med textfelterne
 		VBox textFields = new VBox();
-		
+		textFields.setAlignment(Pos.CENTER_RIGHT);		
 		textFields.getChildren().addAll(varenavnbox, varetypebox, indkøbsdatobox, mængdebox, notebox);
 		
 //		textFields.add(varenavnbox, 0, 0);
