@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import logic.Product;
 
-public class checkDate {
+public class CheckDate {
 
 	public void checExpirekDate(Product product) {
 		// Convert string to LocalDate

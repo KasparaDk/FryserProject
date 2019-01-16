@@ -16,6 +16,7 @@ public class TestProduct {
 	
 	ProductController productController = new ProductController(DatabaseConnection.newConnection("JanProjectDB"));
 	
+	
 	public void add() {
 		productController.addProduct(test2);
 
@@ -33,6 +34,7 @@ public class TestProduct {
 		productController.deleteProduct(test2);
 	}
 	public void tjek() {
+		
 		
 	}
 	
