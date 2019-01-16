@@ -30,6 +30,7 @@ public class AddProductPopUp {
 	private TextField mængdetxt;
 	private TextField notetxt;
 	private ComboBox<ProductType> cmb;
+//	private ProductTypeConverter converter = new ProductTypeConverter();
 
 	// Liste over varetyper
 	private static final String[] liste = { "Fisk - Fed", "Fisk - Mager", "Fisk - Hakket", "Frugt", "Grøntsager",
@@ -78,7 +79,7 @@ public class AddProductPopUp {
 		// Dropdown menu med varetyper
 		ComboBox<ProductType> cmb = new ComboBox<>();
 		cmb.setTooltip(new Tooltip());
-		cmb.getItems().setAll(ProductType.values());
+		cmb.getItems().addAll(ProductType.values());
 		HBox varetypebox = new HBox();
 		varetypebox.getChildren().addAll(varetypelbl, cmb);
 
