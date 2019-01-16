@@ -1,10 +1,10 @@
 package presentationFX;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,6 +16,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import logic.DatabaseConnection;
+import logic.Product;
+import logic.ProductController;
 
 public class Menu {
 
@@ -23,6 +26,7 @@ public class Menu {
 	Stage stage;
 	Scene start;
 	public TableView tableJanProject = new TableView();
+	private ProductController productController = new ProductController(DatabaseConnection.newConnection("JanProjectDB"));
 
 	public void start(Stage stage) {
 
@@ -77,19 +81,25 @@ public class Menu {
 		TableColumn amountCol = new TableColumn("Mængde");
 
 		nameCol.setText("Navn");
-		nameCol.setCellValueFactory(new PropertyValueFactory("Navn"));
+		nameCol.setCellValueFactory(new PropertyValueFactory("name"));
 		purchaseCol.setText("Indkøbsdato");
-		purchaseCol.setCellValueFactory(new PropertyValueFactory("Indkøbsdato"));
-		expirationCol.setText("Udløbsdato");
-		expirationCol.setCellValueFactory(new PropertyValueFactory("Udløbsdato"));
-		typeCol.setText("Type");
-		typeCol.setCellValueFactory(new PropertyValueFactory("Type"));
-		noteCol.setText("Note");
-		noteCol.setCellValueFactory(new PropertyValueFactory("Note"));
-		amountCol.setText("Mængde");
-		amountCol.setCellValueFactory(new PropertyValueFactory("Mængde"));
+		purchaseCol.setCellValueFactory(new PropertyValueFactory("purchaseDate"));
+//		expirationCol.setText("Udløbsdato");
 
-		tableJanProject.getColumns().addAll(nameCol, purchaseCol, expirationCol, typeCol, amountCol, noteCol);
+//		expirationCol.setCellValueFactory(new PropertyValueFactory("Udløbsdato"));
+		typeCol.setText("Type");
+		typeCol.setCellValueFactory(new PropertyValueFactory("type"));
+		noteCol.setText("Note");
+		noteCol.setCellValueFactory(new PropertyValueFactory("note"));
+		amountCol.setText("Mængde");
+		amountCol.setCellValueFactory(new PropertyValueFactory("amount"));
+
+		tableJanProject.getColumns().addAll(nameCol, purchaseCol, expirationCol, typeCol, noteCol, amountCol);
+		ObservableList<Product> productList = FXCollections.observableList(productController.getAllProducts());
+//		Product[] productArr = new Product[productList.size()];
+//		productArr = productList.toArray(productArr);
+//		FXCollections.observableArrayList();
+		tableJanProject.setItems(productList);
 
 		tableJanProject.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
