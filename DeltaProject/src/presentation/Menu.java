@@ -29,6 +29,7 @@ public class Menu {
 		System.out.println("4 Updatere");
 		System.out.println("5 Slet");
 		System.out.println("6 Tjek dato");
+		System.out.println("7 Get date");
 	}
 
 	private void processMenuChoice(String menuChoice, Scanner sc) {
@@ -63,6 +64,11 @@ public class Menu {
 			System.out.println("tjek dato");
 			TestProduct testProduct5 = new TestProduct();
 			testProduct5.tjek();
+			break;
+		case "7":
+			System.out.println("get date");
+			TestProduct testProduct6 = new TestProduct();
+			testProduct6.getDate();
 			break;
 		case "x":
 			System.out.println("  x: Afslut");

@@ -35,7 +35,22 @@ public class CheckDate {
 					product.getName() + " er ved at blive for gamle!" + "\nDu har ca. 30 dage før de er ubrugelige");
 		}
 		
-		
+	}
+	
+	public void getExpireDate(Product product) {
+				// Convert string to LocalDate
+				DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate localDateObj = LocalDate.parse(product.getPurchaseDate(), dateTimeFormatter);
+				
+				// Opretter et expireDate ud fra den konveterede LocalDate fra ProductType klassen
+				LocalDate expireDate = localDateObj.plusDays(product.getTheType().getDays());
+				
+				DateTimeFormatter expireDateFormatter = DateTimeFormatter.ofPattern("dd/MMMM-yyyy");
+				
+				String formattedExpireDate = expireDate.format(expireDateFormatter);
+				// Printer den udløbsdatoen ud
+				System.out.println(expireDate.toString());
+				System.out.println(formattedExpireDate);
 	}
 	
 	
