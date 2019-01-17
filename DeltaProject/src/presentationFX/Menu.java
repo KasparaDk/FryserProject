@@ -18,18 +18,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.DatabaseConnection;
 import logic.Product;
 import logic.ProductController;
-import logic.Ven;
-import logic.VennerOgBekendte;
-import logic.VennerOgBekendteFactory;
 
 public class Menu {
 
