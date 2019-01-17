@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -63,7 +65,7 @@ public class Menu {
 		Button btnRemove = new Button("Slet vare");
 		btnRemove.setPrefSize(300, 100);
 		btnRemove.setFont(Font.font("Serif", FontWeight.BOLD, 30));
-		// btnRemove.setOnAction(e -> Slet());
+		btnRemove.setOnAction(e -> DeleteRow());
 
 		Button btnUpdate = new Button("Opdater vare");
 		btnUpdate.setPrefSize(300, 100);
@@ -117,21 +119,23 @@ public class Menu {
 		stage.show();
 	}
 
-//	private void DeleteRow() {
-//	    int selectedIndex = tableJanProject.getSelectionModel().getSelectedIndex();
-//	    if (selectedIndex >= 0) {
-//	        tableJanProject.getItems().remove(selectedIndex);
-//	    } else {
-//	        // Nothing selected.
-//	        Alert alert = new Alert(AlertType.WARNING);
-//	//        alert.initOwner( start.getPrimaryStage());
-//	        alert.setTitle("No Selection");
-//	        alert.setHeaderText("No Person Selected");
-//	        alert.setContentText("Please select a person in the table.");
-//
-//	        alert.showAndWait();
-//	    }
-//	}
+	private void DeleteRow() {
+	    int selectedIndex = tableJanProject.getSelectionModel().getSelectedIndex();
+	    if (selectedIndex >= 0) {
+	        Product product = (Product) tableJanProject.getItems().get(selectedIndex);
+	    	tableJanProject.getItems().remove(selectedIndex);
+	        productController.deleteProduct(product);
+	    } else {
+	        // Nothing selected.
+	        Alert alert = new Alert(AlertType.WARNING);
+	//        alert.initOwner( start.getPrimaryStage());
+	        alert.setTitle("No Selection");
+	        alert.setHeaderText("No Person Selected");
+	        alert.setContentText("Please select a person in the table.");
+
+	        alert.showAndWait();
+	    }
+	}
 	
 	private void addProduct() {
 		AddProductPopUp tilføj  = new AddProductPopUp();
