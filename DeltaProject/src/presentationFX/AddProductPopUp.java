@@ -1,5 +1,6 @@
 package presentationFX;
 
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -73,6 +74,7 @@ public class AddProductPopUp {
 		Label varenavnlbl = new Label("Varenavn:");
 		varenavntxt = new TextField();
 		varenavntxt.setMaxWidth(150);
+		varenavntxt.setPromptText("Fx Pommes Frites");
 //		HBox varenavnbox = new HBox();
 //		varenavnbox.getChildren().addAll(varenavnlbl, varenavntxt);
 
@@ -98,6 +100,7 @@ public class AddProductPopUp {
 		String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MMMM - yyyy"));
 		indkøbsdatotxt.setText(date);
 		indkøbsdatotxt.setStyle("-fx-text-inner-color: grey;");
+		indkøbsdatotxt.setStyle("-fx-control-inner-background:lightgrey");
 		indkøbsdatotxt.setAlignment(Pos.CENTER);
 //		HBox indkøbsdatobox = new HBox();
 //		indkøbsdatobox.getChildren().addAll(indkøbsdatolbl, indkøbsdatotxt);
@@ -106,6 +109,7 @@ public class AddProductPopUp {
 		Label mængdelbl = new Label("Mændge:");
 		mængdetxt = new TextField();
 		mængdetxt.setMaxWidth(150);
+		mængdetxt.setPromptText("Skrives i gram");
 //		HBox mængdebox = new HBox();
 //		mængdebox.getChildren().addAll(mængdelbl, mængdetxt);
 
@@ -113,6 +117,7 @@ public class AddProductPopUp {
 		Label notelbl = new Label("Note:");
 		notetxt = new TextField();
 		notetxt.setMaxWidth(150);
+		notetxt.setPromptText("Fx Højre side i fryseren");
 //		HBox notebox = new HBox();
 //		notebox.getChildren().addAll(notelbl, notetxt);
 //		notebox.setSpacing(10);
@@ -130,7 +135,7 @@ public class AddProductPopUp {
 		// GridPane med textfelterne
 		GridPane textFields = new GridPane();
 		textFields.getColumnConstraints().add(new ColumnConstraints(110));
-		textFields.getColumnConstraints().add(new ColumnConstraints(182));
+		textFields.getColumnConstraints().add(new ColumnConstraints(183));
 		textFields.add(column1, 0, 0);
 		textFields.add(column2, 1, 0);
 

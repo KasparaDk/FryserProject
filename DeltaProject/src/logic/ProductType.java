@@ -1,12 +1,9 @@
 package logic;
 
 public enum ProductType {
-	SAUSAGE(90, "Pølse"), LEANPORK(180, "Mager Svinekød"), FATPORK(90, "Fedt Svinekød"),
-	MINCEDMEAT(120, "Hakket kød"), SMOKEDMEAT(180, "Røget kød"), CHICKEN(300, "Kylling"), BEEF(300, "Bøf"),
-	LAMB(300, "Lammekød"), MINCEDFISH(60, "Hakket fisk"), FATFISH(90, "Fed fisk"),
-	LEANFISH(180, "Mager fisk"), VEGETABLES(300, "Grøntsager"), FRUIT(365, "Frugt");
-//	PØLSER, MAGERTSVINEKØD, FEDTSVINEKØD, HAKKETKØD, RØGETKØD, KYLLING, OKSEKØD, LAMMEKØD,
-//	RØGETFISK, FISKEFARS, FEDFISK, MAGERFISK, GRØNTSAGER, FRUGT
+	MINCEDMEAT(120, "Fars"), FATFISH(90, "Fisk, Fed"), MINCEDFISH(60, "Fisk, Hakket"), LEANFISH(180, "Fisk, Magert"), 
+	FRUIT(365, "Frugt"), VEGETABLES(300, "Grøntsager"), CHICKEN(300, "Kylling"), LAMB(300, "Lammekød"), BEEF(300, "Oksekød"), 
+	SAUSAGE(90, "Pølse"), SMOKEDMEAT(180, "Røget kød"), FATPORK(90, "Svinekød, Fed"), LEANPORK(180, "Svinekød, Magert");
 
 	private int days;
 	private String danishType;
