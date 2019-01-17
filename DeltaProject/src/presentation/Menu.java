@@ -30,6 +30,7 @@ public class Menu {
 		System.out.println("5 Slet");
 		System.out.println("6 Tjek dato");
 		System.out.println("7 Get date");
+		System.out.println("8 Days between");
 	}
 
 	private void processMenuChoice(String menuChoice, Scanner sc) {
@@ -69,6 +70,11 @@ public class Menu {
 			System.out.println("get date");
 			TestProduct testProduct6 = new TestProduct();
 			testProduct6.getDate();
+			break;
+		case "8":
+			System.out.println("Days between");
+			TestProduct testProduct7 = new TestProduct();
+			testProduct7.daysBetween();
 			break;
 		case "x":
 			System.out.println("  x: Afslut");

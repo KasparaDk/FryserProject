@@ -12,7 +12,7 @@ public class TestProduct {
 	
 	Product test = new Product(0, "sovs", "på", "09/03/2034", ProductType.BEEF, "godt");
 	Product test1 = new Product(0, "Pølse", "15/09/2018", "500g",ProductType.SAUSAGE, "Nederste hylde");
-	Product test2 = new Product(0, "Kylling", "15/02/2016", "2000g", ProductType.CHICKEN, "Midterste hylde");
+	Product test2 = new Product(0, "Kylling", "25/03/2018", "2000g", ProductType.CHICKEN, "Midterste hylde");
 	Product test3 = new Product(0, "Bøff", "12/12/2053", "2344g", ProductType.FATFISH, "Sove hylde");
 	Product test4 = new Product(0, "Is", "31/07/2013", "100g", ProductType.SMOKEDMEAT, "Midterste hul");
 	Product test5 = new Product(0, "Suppe", "01/02/1995", "1234g", ProductType.MINCEDMEAT, "Et Hemmeligt sted");
@@ -53,5 +53,9 @@ public class TestProduct {
 	
 	public void getDate() {
 		checkDate.getExpireDate(test2);
+	}
+	
+	public void daysBetween() {
+		checkDate.daysBetweenTwoDates(test2);
 	}
 }
