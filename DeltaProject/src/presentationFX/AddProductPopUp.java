@@ -62,9 +62,6 @@ public class AddProductPopUp {
 		buttonPane.setLeft(annuller);
 		buttonPane.setRight(tilføj);
 
-//		VBox buttonVBox = new VBox();
-//		buttonVBox.getChildren().addAll(tilføj, annuller);
-
 		// Teksfelterne
 		//Vbokse til at indsætte tingene
 		VBox column1 = new VBox();
@@ -75,8 +72,6 @@ public class AddProductPopUp {
 		varenavntxt = new TextField();
 		varenavntxt.setMaxWidth(150);
 		varenavntxt.setPromptText("Fx Pommes Frites");
-//		HBox varenavnbox = new HBox();
-//		varenavnbox.getChildren().addAll(varenavnlbl, varenavntxt);
 
 		// Varetype
 		Label varetypelbl = new Label("Varetype:");
@@ -86,8 +81,6 @@ public class AddProductPopUp {
 //		cmb.setTooltip(new Tooltip());
 		cmb.getItems().addAll(ProductType.values());
 		cmb.setMinWidth(150);
-//		HBox varetypebox = new HBox();
-//		varetypebox.getChildren().addAll(varetypelbl, cmb);
 
 		// Indkøbsdato
 		Label indkøbsdatolbl = new Label("Indkøbsdato:");
@@ -102,25 +95,18 @@ public class AddProductPopUp {
 		indkøbsdatotxt.setStyle("-fx-text-inner-color: grey;");
 		indkøbsdatotxt.setStyle("-fx-control-inner-background:lightgrey");
 		indkøbsdatotxt.setAlignment(Pos.CENTER);
-//		HBox indkøbsdatobox = new HBox();
-//		indkøbsdatobox.getChildren().addAll(indkøbsdatolbl, indkøbsdatotxt);
 
 		// Mængde
 		Label mængdelbl = new Label("Mændge:");
 		mængdetxt = new TextField();
 		mængdetxt.setMaxWidth(150);
 		mængdetxt.setPromptText("Skrives i gram");
-//		HBox mængdebox = new HBox();
-//		mængdebox.getChildren().addAll(mængdelbl, mængdetxt);
 
 		// Note
 		Label notelbl = new Label("Note:");
 		notetxt = new TextField();
 		notetxt.setMaxWidth(150);
 		notetxt.setPromptText("Fx Højre side i fryseren");
-//		HBox notebox = new HBox();
-//		notebox.getChildren().addAll(notelbl, notetxt);
-//		notebox.setSpacing(10);
 		
 		//Indsætter tingene i Vboksene
 		column1.getChildren().addAll(varenavnlbl, varetypelbl, indkøbsdatolbl, mængdelbl, notelbl);
