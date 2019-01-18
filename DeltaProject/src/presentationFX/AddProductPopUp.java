@@ -86,7 +86,7 @@ public class AddProductPopUp {
 		indkøbsdatotxt.setEditable(false);
 		indkøbsdatotxt.setMouseTransparent(true);
 		indkøbsdatotxt.setFocusTraversable(false);
-		String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MMMM - yyyy"));
+		String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy"));
 		indkøbsdatotxt.setText(date);
 		indkøbsdatotxt.setStyle("-fx-text-inner-color: grey;");
 		indkøbsdatotxt.setStyle("-fx-control-inner-background:lightgrey");
