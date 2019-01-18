@@ -1,7 +1,9 @@
 package presentationFX;
 
-import javafx.collections.FXCollections;
+import java.time.format.DateTimeFormatter;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -77,18 +79,25 @@ public class Menu {
 		tableJanProject.setEditable(true);
 
 		TableColumn nameCol = new TableColumn("Navn");
-		TableColumn purchaseCol = new TableColumn("Indkøbsdato");
-		TableColumn expirationCol = new TableColumn("Udløbsdato");
+		TableColumn<Product, String> purchaseCol = new TableColumn("Indkøbsdato");
+		TableColumn<Product, String> expirationCol = new TableColumn("Udløbsdato");
 		TableColumn typeCol = new TableColumn("Type");
 		TableColumn noteCol = new TableColumn("Note");
 		TableColumn amountCol = new TableColumn("Mængde");
 
 		nameCol.setText("Navn");
 		nameCol.setCellValueFactory(new PropertyValueFactory("name"));
-		purchaseCol.setText("Indkøbsdato");
-		purchaseCol.setCellValueFactory(new PropertyValueFactory("purchaseDate"));
+//		purchaseCol.setText("Indkøbsdato");
+		purchaseCol.setCellValueFactory(e -> {
+			Product product = e.getValue();
+			return new SimpleStringProperty(product.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
+		});
 //		expirationCol.setText("Udløbsdato");
-
+		expirationCol.setCellValueFactory(e -> {
+			Product product = e.getValue();
+			
+			return new SimpleStringProperty(product.getExpireDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
+		});
 //		expirationCol.setCellValueFactory(new PropertyValueFactory("Udløbsdato"));
 		typeCol.setText("Type");
 		typeCol.setCellValueFactory(new PropertyValueFactory("type"));

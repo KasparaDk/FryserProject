@@ -20,7 +20,7 @@ public class Product {
 		this.type = type;
 		this.note = note;
 	}
-	//TEST
+
 	public void setVareID(int vareID) {
 		this.vareID = vareID;
 	}
@@ -116,7 +116,6 @@ public class Product {
 		}
 
 	}
-
 
 	@Override
 	public String toString() {
