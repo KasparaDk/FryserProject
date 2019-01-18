@@ -173,7 +173,7 @@ public class AddProductPopUp {
 		}
 		
 		else if (cmb.getValue() != null && !varenavntxt.getText().isEmpty()){
-		Product product = new Product(0, varenavntxt.getText(), indkøbsdatotxt.getText(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
+		Product product = new Product(0, varenavntxt.getText(), LocalDate.now(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
 		productController.addProduct(product);
 //		Alert alert = new Alert(AlertType.INFORMATION, "Product" + product + "oprettet", ButtonType.OK);
 //		alert.showAndWait();
