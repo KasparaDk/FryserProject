@@ -1,6 +1,7 @@
 package presentationFX;
 
-import java.awt.Color;
+
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -11,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -140,7 +140,7 @@ public class AddProductPopUp {
 	}
 
 	private void addProcuct() {
-		Product product = new Product(0, varenavntxt.getText(), indkøbsdatotxt.getText(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
+		Product product = new Product(0, varenavntxt.getText(), LocalDate.now(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
 		productController.addProduct(product);
 //		Alert alert = new Alert(AlertType.INFORMATION, "Product" + product + "oprettet", ButtonType.OK);
 //		alert.showAndWait();

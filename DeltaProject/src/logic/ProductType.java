@@ -1,20 +1,20 @@
 package logic;
 
 public enum ProductType {
-	MINCEDMEAT(120, "Fars"), FATFISH(90, "Fisk, Fed"), MINCEDFISH(60, "Fisk, Hakket"), LEANFISH(180, "Fisk, Magert"), 
-	FRUIT(365, "Frugt"), VEGETABLES(300, "Grøntsager"), CHICKEN(300, "Kylling"), LAMB(300, "Lammekød"), BEEF(300, "Oksekød"), 
-	SAUSAGE(90, "Pølse"), SMOKEDMEAT(180, "Røget kød"), FATPORK(90, "Svinekød, Fed"), LEANPORK(180, "Svinekød, Magert");
+	MINCEDMEAT(4, "Fars"), FATFISH(3, "Fisk, Fed"), MINCEDFISH(2, "Fisk, Hakket"), LEANFISH(6, "Fisk, Magert"), 
+	FRUIT(12, "Frugt"), VEGETABLES(10, "Grøntsager"), CHICKEN(10, "Kylling"), LAMB(10, "Lammekød"), BEEF(10, "Oksekød"), 
+	SAUSAGE(3, "Pølse"), SMOKEDMEAT(6, "Røget kød"), FATPORK(3, "Svinekød, Fed"), LEANPORK(6, "Svinekød, Magert");
 
-	private int days;
+	private int months;
 	private String danishType;
 
-ProductType(int days, String danishType) {
-	this.days = days;
+ProductType(int months, String danishType) {
+	this.months = months;
 	this.danishType = danishType;
 }
 
-public int getDays() {
-	return days;
+public int getMonths() {
+	return months;
 }
 
 
