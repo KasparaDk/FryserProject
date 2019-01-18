@@ -2,12 +2,16 @@ package presentationFX;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -31,13 +35,11 @@ public class AddProductPopUp {
 	private ComboBox<ProductType> cmb;
 	private Label varenavnEmpty = new Label("*");
 	private Label cmbEmpty = new Label("*");
+	private Menu menu;
 //	private ProductTypeConverter converter = new ProductTypeConverter();
 
-	// Liste over varetyper
-	private static final String[] liste = { "Fisk - Fed", "Fisk - Mager", "Fisk - Hakket", "Frugt", "Grøntsager",
-			"Hakkekød", "Kalvekød", "Kylling", "Lam", "Pølser", "Røget kød", "Svinekød - Fed", "Svinekød - Mager" };
-
-	public void start(Stage stage) {
+	public void start(Stage stage, Menu menu) {
+		this.menu = menu;
 		Stage popUp = new Stage();
 		popUp.setTitle("Tilføj Vare");
 		popUp.setHeight(300);
@@ -175,11 +177,10 @@ public class AddProductPopUp {
 		else if (cmb.getValue() != null && !varenavntxt.getText().isEmpty()){
 		Product product = new Product(0, varenavntxt.getText(), LocalDate.now(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
 		productController.addProduct(product);
-//		Alert alert = new Alert(AlertType.INFORMATION, "Product" + product + "oprettet", ButtonType.OK);
-//		alert.showAndWait();
 		varenavntxt.clear();
 		mængdetxt.clear();
 		notetxt.clear();
+		menu.productList.add(product);	
 		}
 	}
 }

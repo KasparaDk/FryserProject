@@ -2,6 +2,8 @@ package presentationFX;
 
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.text.TabableView;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +28,7 @@ import logic.Product;
 import logic.ProductController;
 
 public class Menu {
-
+	ObservableList<Product> productList;
 	TextField tf;
 	Stage stage;
 	Scene start;
@@ -107,7 +109,7 @@ public class Menu {
 		amountCol.setCellValueFactory(new PropertyValueFactory("amount"));
 
 		tableJanProject.getColumns().addAll(nameCol, purchaseCol, expirationCol, typeCol, noteCol, amountCol);
-		ObservableList<Product> productList = FXCollections.observableList(productController.getAllProducts());
+		productList = FXCollections.observableList(productController.getAllProducts());
 //		Product[] productArr = new Product[productList.size()];
 //		productArr = productList.toArray(productArr);
 //		FXCollections.observableArrayList();
@@ -149,7 +151,8 @@ public class Menu {
 	
 	private void addProduct() {
 		AddProductPopUp tilføj  = new AddProductPopUp();
-		tilføj.start(new Stage());
+		tilføj.start(new Stage(), this);
 	}
+	
 
 }
