@@ -8,7 +8,7 @@ public class DatabaseConnection {
 	public static Connection newConnection(String databaseName) {
 		String connectionString = "jdbc:sqlserver://142.93.228.145:1433;" + "databaseName=" + databaseName + ";"
 				+ "user=sa;password=myStrongPassword!";
-		//TEST
+
 		try {
 			System.out.println("Connecting to database...");
 

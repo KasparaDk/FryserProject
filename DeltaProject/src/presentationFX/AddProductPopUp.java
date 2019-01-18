@@ -43,7 +43,7 @@ public class AddProductPopUp {
 		popUp.setHeight(300);
 		popUp.setWidth(400);
 		popUp.setResizable(false);
-		
+		// Test		
 		// Knapperne
 		Button tilføj = new Button();
 		tilføj.setText("Tilføj Vare");

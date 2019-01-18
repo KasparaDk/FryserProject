@@ -20,7 +20,7 @@ public class Product {
 		this.type = type;
 		this.note = note;
 	}
-
+// Test
 	public void setVareID(int vareID) {
 		this.vareID = vareID;
 	}

@@ -12,7 +12,7 @@ ProductType(int months, String danishType) {
 	this.months = months;
 	this.danishType = danishType;
 }
-//TEST
+
 public int getMonths() {
 	return months;
 }

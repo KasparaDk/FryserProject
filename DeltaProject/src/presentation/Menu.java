@@ -20,7 +20,7 @@ public class Menu {
 			}
 		}
 	}
-	//TEST
+
 	private void showMenu() {
 		System.out.println("Produkt test show Menu");
 		System.out.println("1 random");

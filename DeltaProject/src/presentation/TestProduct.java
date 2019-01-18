@@ -20,7 +20,7 @@ public class TestProduct {
 //	Product test6 = new Product(0, "Jeg ved ikke hvad", "15/10/1980", "5000g", ProductType.LAMB, "Sjove ting");
 //	Product test7 = new Product(0, "ØL", "06/02/2020", "2000g", ProductType.MINCEDFISH, "Jeg vil sove");
 //	Product testupdate = new Product(2, "opdater", "01/01/2020", "opdater", ProductType.BEEF, "opdater");
-	//TEST
+
 	
 	ProductController productController = new ProductController(DatabaseConnection.newConnection("JanProjectDB"));
 //	CheckDate checkDate = new CheckDate();

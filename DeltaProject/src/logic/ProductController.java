@@ -155,7 +155,7 @@ private List<Product> getAllProductWhere(String whereClause) {
 			String note = resultSet.getString("Note");
 
 			Product product = new Product(vareID, name, purchaseDate, amount, type, note);
-			//TEST
+
 			ProductListe.add(product);
 
 //			System.out.println(id + ", " + lastName + ", " + firstName + ", " + semesterNr);
