@@ -149,7 +149,8 @@ private List<Product> getAllProductWhere(String whereClause) {
 		while (resultSet.next()) {
 			int vareID = resultSet.getInt("VareID");
 			String name = resultSet.getString("varename");
-			LocalDate purchaseDate = LocalDate.ofInstant(Instant.ofEpochMilli(resultSet.getLong("purchaseDate")), ZoneId.systemDefault());
+			LocalDate purchaseDate = LocalDate.ofEpochDay(resultSet.getLong("purchaseDate"));
+//			LocalDate purchaseDate = l(resultSet.getLong("purchaseDate")).atZone(ZoneId.systemDefault()).toLocalDate();
 //			LocalDate date =  resultSet.getDate("purchaseDate").toLocalDate();
 			String amount = resultSet.getString("amount");
 			ProductType type = ProductType.valueOf(resultSet.getString("varetype"));
