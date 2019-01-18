@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +38,7 @@ public class ProductController {
 			try {
 				PreparedStatement add = connection.prepareStatement(sql);
 				add.setString(1, product.getName());
-				add.setString(2, product.getPurchaseDate());
+				add.setLong(2, product.getPurchaseDate().toEpochDay());
 				add.setString(3, product.getAmount());
 				add.setString(4, product.getType());
 				add.setString(5, product.getNote());
@@ -82,7 +85,7 @@ public boolean updateProduct(Product product) {
 	try {
 		PreparedStatement update = connection.prepareStatement(sql);			
 		update.setString(1, product.getName());
-		update.setString(2, product.getPurchaseDate());
+		update.setLong(2, product.getPurchaseDate().toEpochDay());
 		update.setString(3, product.getAmount());
 		update.setString(4, product.getType());
 		update.setString(5, product.getNote());
@@ -142,11 +145,12 @@ private List<Product> getAllProductWhere(String whereClause) {
 
 		Statement statment = connection.createStatement();
 		ResultSet resultSet = statment.executeQuery(sql);
-
+				
 		while (resultSet.next()) {
 			int vareID = resultSet.getInt("VareID");
 			String name = resultSet.getString("varename");
-			String purchaseDate = resultSet.getString("PurchaseDate");
+			LocalDate purchaseDate = LocalDate.ofInstant(Instant.ofEpochMilli(resultSet.getLong("purchaseDate")), ZoneId.systemDefault());
+//			LocalDate date =  resultSet.getDate("purchaseDate").toLocalDate();
 			String amount = resultSet.getString("amount");
 			ProductType type = ProductType.valueOf(resultSet.getString("varetype"));
 			String note = resultSet.getString("Note");
