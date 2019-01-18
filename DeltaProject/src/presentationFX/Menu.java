@@ -24,7 +24,7 @@ import logic.Product;
 import logic.ProductController;
 
 public class Menu {
-
+	//TEST
 	TextField tf;
 	Stage stage;
 	Scene start;

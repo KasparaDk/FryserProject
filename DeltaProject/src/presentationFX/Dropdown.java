@@ -26,7 +26,7 @@ import javafx.stage.Window;
 			cmb.setOnKeyPressed(this::handleOnKeyPressed);
 			cmb.setOnHidden(this::handleOnHiding);
 		}
-
+		//TEST
 		public void handleOnKeyPressed(KeyEvent e) {
 			ObservableList<T> filteredList = FXCollections.observableArrayList();
 			KeyCode code = e.getCode();

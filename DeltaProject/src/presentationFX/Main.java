@@ -7,7 +7,7 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-		
+	//TEST
 	}
 		public void start(Stage primaryStage)  throws Exception {
 			Menu menu = new Menu();
