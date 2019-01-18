@@ -1,10 +1,7 @@
 package presentationFX;
 
-
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import logic.DatabaseConnection;
 import logic.Product;
@@ -30,6 +29,8 @@ public class AddProductPopUp {
 	private TextField mængdetxt;
 	private TextField notetxt;
 	private ComboBox<ProductType> cmb;
+	private Label varenavnEmpty = new Label("*");
+	private Label cmbEmpty = new Label("*");
 //	private ProductTypeConverter converter = new ProductTypeConverter();
 
 	// Liste over varetyper
@@ -61,11 +62,6 @@ public class AddProductPopUp {
 		buttonPane.setPadding(new Insets(20, 50, 20, 50));
 		buttonPane.setLeft(annuller);
 		buttonPane.setRight(tilføj);
-
-		// Teksfelterne
-		//Vbokse til at indsætte tingene
-		VBox column1 = new VBox();
-		VBox column2 = new VBox();
 		
 		// Varenavn
 		Label varenavnlbl = new Label("Varenavn:");
@@ -108,22 +104,43 @@ public class AddProductPopUp {
 		notetxt.setMaxWidth(150);
 		notetxt.setPromptText("Fx Højre side i fryseren");
 		
-		//Indsætter tingene i Vboksene
-		column1.getChildren().addAll(varenavnlbl, varetypelbl, indkøbsdatolbl, mængdelbl, notelbl);
-		column1.setSpacing(20);
-		column1.setAlignment(Pos.CENTER_RIGHT);
+		//fejlmeddelser fixes
+		varenavnEmpty.setFont(new Font("Calibri", 16));
+		varenavnEmpty.setTextFill(Color.RED);
+		cmbEmpty.setFont(new Font("Calibri", 16));
+		cmbEmpty.setTextFill(Color.RED);
+		varenavnEmpty.setVisible(false);
+		cmbEmpty.setVisible(false);
 		
-		column2.getChildren().addAll(varenavntxt, cmb, indkøbsdatotxt, mængdetxt, notetxt);
-		column2.setSpacing(12);
-		column2.setPadding(new Insets(0, 0, 0, 0));
-		column2.setAlignment(Pos.CENTER_RIGHT);
+		
+		// Teksfelterne
+		//Vbokse til at indsætte tingene
+		VBox labelcolumn = new VBox();
+		VBox txtcolumn = new VBox();
+		VBox fejlcolumn = new VBox();
+		
+		//Indsætter tingene i Vboksene
+		labelcolumn.getChildren().addAll(varenavnlbl, varetypelbl, indkøbsdatolbl, mængdelbl, notelbl);
+		labelcolumn.setSpacing(20);
+		labelcolumn.setPadding(new Insets(5, 0, 0, 0));
+		labelcolumn.setAlignment(Pos.CENTER_RIGHT);
+		
+		txtcolumn.getChildren().addAll(varenavntxt, cmb, indkøbsdatotxt, mængdetxt, notetxt);
+		txtcolumn.setSpacing(12);
+		txtcolumn.setPadding(new Insets(5, 0, 0, 0));
+		txtcolumn.setAlignment(Pos.CENTER_RIGHT);
+		
+		fejlcolumn.getChildren().addAll(varenavnEmpty, cmbEmpty);
+		fejlcolumn.setPadding(new Insets(0, 0, 0, 3));
+		fejlcolumn.setSpacing(20);
 		
 		// GridPane med textfelterne
 		GridPane textFields = new GridPane();
 		textFields.getColumnConstraints().add(new ColumnConstraints(110));
 		textFields.getColumnConstraints().add(new ColumnConstraints(183));
-		textFields.add(column1, 0, 0);
-		textFields.add(column2, 1, 0);
+		textFields.add(labelcolumn, 0, 0);
+		textFields.add(txtcolumn, 1, 0);
+		textFields.add(fejlcolumn, 2, 0);
 
 		BorderPane layout = new BorderPane();
 		layout.setPadding(new Insets(20, 20, 10, 20));
@@ -140,12 +157,29 @@ public class AddProductPopUp {
 	}
 
 	private void addProcuct() {
-		Product product = new Product(0, varenavntxt.getText(), LocalDate.now(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
+		if (varenavntxt.getText().isEmpty() && cmb.getValue() == null) {
+			varenavnEmpty.setVisible(true);
+			cmbEmpty.setVisible(true);
+		}
+		
+		if (varenavntxt.getText().isEmpty() && cmb.getValue() != null) {
+			varenavnEmpty.setVisible(true);
+			cmbEmpty.setVisible(false);
+		}
+		
+		else if (cmb.getValue() == null && !varenavntxt.getText().isEmpty()) {
+			cmbEmpty.setVisible(true);
+			varenavnEmpty.setVisible(false);
+		}
+		
+		else if (cmb.getValue() != null && !varenavntxt.getText().isEmpty()){
+		Product product = new Product(0, varenavntxt.getText(), indkøbsdatotxt.getText(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
 		productController.addProduct(product);
 //		Alert alert = new Alert(AlertType.INFORMATION, "Product" + product + "oprettet", ButtonType.OK);
 //		alert.showAndWait();
 		varenavntxt.clear();
 		mængdetxt.clear();
 		notetxt.clear();
+		}
 	}
 }
