@@ -9,12 +9,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,6 +27,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.DatabaseConnection;
 import logic.Product;
@@ -195,21 +199,68 @@ public class Menu {
 	}
 
 	private void DeleteRow() {
-	    int selectedIndex = tbvOverview.getSelectionModel().getSelectedIndex();
-	    if (selectedIndex >= 0) {
-	        Product product = (Product) tbvOverview.getItems().get(selectedIndex);
-	    	tbvOverview.getItems().remove(selectedIndex);
-	        productController.deleteProduct(product);
-	    } else {
-	        // Nothing selected.
-	        Alert alert = new Alert(AlertType.WARNING);
-	//        alert.initOwner( start.getPrimaryStage());
-	        alert.setTitle("No Selection");
-	        alert.setHeaderText("No Person Selected");
-	        alert.setContentText("Please select a person in the table.");
+		int selectedIndex = tbvOverview.getSelectionModel().getSelectedIndex();
+		if (selectedIndex >= 0) {
+			Product product = (Product) tbvOverview.getItems().get(selectedIndex);
+			final Stage dialog = new Stage();
+			dialog.initModality(Modality.APPLICATION_MODAL);
+			dialog.initOwner(stage);
+			BorderPane bppopup = new BorderPane();
+			BorderPane bpBottom = new BorderPane();
+			BorderPane bpTop = new BorderPane();
+			bpTop.setPadding(new Insets(1, 1, 1, 1));
+			bpBottom.setPadding(new Insets(20, 50, 20, 50));
+			HBox hboxButtons = new HBox();
+			hboxButtons.setPadding(new Insets(100, 100, 100, 100));
+			
+			String getName = product.getName();
+			String getNote = product.getNote();
+			String getAmount = product.getAmount();
+			Label labelbesked = new Label();
+			Label labelvare = new Label();
+			labelbesked.setText("vil du slette denne varelinje:");
+			labelbesked.setFont(new Font("Arial", 15));
+			labelvare.setPadding(new Insets(50, 0, 0, 0));
+			labelvare.setText(getName + ", " + getAmount + ", " + getNote);
+			labelvare.setFont(new Font("Arial", 15));
+			
+			Button btnDelete = new Button("OK");
+			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 
-	        alert.showAndWait();
-	    }
+				@Override
+				public void handle(ActionEvent arg0) {
+					productList.remove(selectedIndex);
+					productController.deleteProduct(product);
+					dialog.close();
+				}
+			});
+					
+			Button btnAnnuler = new Button("Annuler");
+			btnAnnuler.setOnAction(e -> dialog.close());
+				
+			hboxButtons.setAlignment(Pos.CENTER);
+			hboxButtons.getChildren().addAll(btnAnnuler, btnDelete);
+			
+			bppopup.setBottom(bpBottom);
+			bppopup.setTop(bpTop);
+			bpTop.setTop(labelbesked);
+			bpTop.setBottom(labelvare);
+			bpBottom.setRight(btnDelete);
+			bpBottom.setLeft(btnAnnuler);
+			
+			Scene dialogScene = new Scene(bppopup, 300, 200);
+			dialog.setScene(dialogScene);
+			dialog.show();
+		} else {
+			// Nothing selected.
+			Alert alert = new Alert(AlertType.WARNING);
+			// alert.initOwner( start.getPrimaryStage());
+			alert.setTitle("Ingen vare markeret");
+			alert.setHeaderText("Ingen vare markeret");
+			alert.setContentText("Marker en linje inden du trykker på slet");
+
+			alert.showAndWait();
+		}
 	}
 	
 	private void addProduct() {
