@@ -41,6 +41,8 @@ public class Menu {
 	TextField tf;
 	Stage stage;
 	Scene start;
+	Label statuslbl = new Label("");
+	Label statuslbl1 = new Label(statuslbl.getText());
 	public TableView<Product> tbvOverview = new TableView();
 	private ProductController productController = new ProductController(
 			DatabaseConnection.newConnection("JanProjectDB"));
@@ -60,7 +62,7 @@ public class Menu {
 		gridRight.setPadding(new Insets(0, 10, 10, 10));
 		gridRight.setVgap(10);
 
-		HBox hboxSearch = new HBox();
+		BorderPane topPane = new BorderPane();
 
 		// vores søgefelt
 		TextField textSearch = new TextField();
@@ -68,9 +70,16 @@ public class Menu {
 		textSearch.setPromptText("Søg efter en vare");
 		textSearch.setFocusTraversable(false);
 		textSearch.setStyle("-fx-padding: 10 100 10 100;");
-		hboxSearch.setAlignment(Pos.CENTER);
-		hboxSearch.getChildren().addAll(textSearch);
-		hboxSearch.setStyle("-fx-padding: 10 0 10 0;");
+		topPane.setCenter(textSearch);
+		topPane.setLeft(statuslbl);
+		topPane.setRight(statuslbl1);
+		statuslbl1.setVisible(false);
+		statuslbl.setFont(new Font("Calibri", 16));
+		statuslbl1.setFont(new Font("Calibri", 16));
+		topPane.setMargin(textSearch, new Insets(10, 10, 10, 10));
+		topPane.setMargin(statuslbl1, new Insets(20, 20, 0, 0));
+		topPane.setMargin(statuslbl, new Insets(20, 0, 0, 0));
+//		topPane.setPadding(new Insets(10, 10, 10, 10));
 
 		// vores forskellige knapper
 		Button btnCreate = new Button("Tilføj vare");
@@ -193,7 +202,7 @@ public class Menu {
 		// samling på det hele
 		borderPaneStart.setCenter(tbvOverview);
 		borderPaneStart.setRight(gridRight);
-		borderPaneStart.setTop(hboxSearch);
+		borderPaneStart.setTop(topPane);
 		gridRight.add(btnCreate, 2, 0);
 		gridRight.add(btnRemove, 2, 1);
 		gridRight.add(btnUpdate, 2, 2);
@@ -217,6 +226,8 @@ public class Menu {
 			alert.getButtonTypes().setAll(buttonTypeAnnuller, buttonTypeOkay);
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOkay) {
+				statuslbl.setText(product.getName() + " er blevet slettet");
+				statuslbl1.setText(product.getName() + " er blevet slettet");
 				productList.remove(selectedIndex);
 				productController.deleteProduct(product);
 				
@@ -243,9 +254,15 @@ public class Menu {
 	}
 
 	private void updateProduct() {
-		Product product = (Product) tbvOverview.getSelectionModel().getSelectedItem();
-		UpdateProductPopUp updateproduct = new UpdateProductPopUp();
-		updateproduct.start(new Stage(), this, product);
+		int selectedIndex = tbvOverview.getSelectionModel().getSelectedIndex();
+		if (selectedIndex >= 0) {
+			Product product = (Product) tbvOverview.getSelectionModel().getSelectedItem();
+			UpdateProductPopUp updateproduct = new UpdateProductPopUp();
+			updateproduct.start(new Stage(), this, product);
+		} else {
+			statuslbl.setText("Der skal vælges en vare, før der kan opdateres");
+			statuslbl1.setText("Der skal vælges en vare, før der kan opdateres");
+		}
 	}
 
 //	private void checkDate() {
