@@ -32,9 +32,8 @@ public class UpdateProductPopUp {
 	private TextField indkøbsdatotxt;
 	private TextField mængdetxt;
 	private TextField notetxt;
-	private ComboBox<ProductType> cmb;
+	private TextField varetypetxt;
 	private Label varenavnEmpty = new Label("*");
-	private Label cmbEmpty = new Label("*");
 	private Menu menu;
 	private TableView tbvOverview;
 //	private ProductTypeConverter converter = new ProductTypeConverter();
@@ -54,7 +53,7 @@ public class UpdateProductPopUp {
 		Button tilføj = new Button();
 		tilføj.setText("Opdater");
 		tilføj.setOnAction(e -> {
-			addProcuct();
+			updateProduct(menu, product);
 		});
 
 		
@@ -74,28 +73,31 @@ public class UpdateProductPopUp {
 		Label varenavnlbl = new Label("Varenavn:");
 		varenavntxt = new TextField();
 		varenavntxt.setMaxWidth(150);
-		varenavnlbl.setText("");
+		varenavntxt.setText(product.getName());
 		
 
 		// Varetype
 		Label varetypelbl = new Label("Varetype:");
-		// Dropdown menu med varetyper
-//		ComboBox<ProductType> 
-		cmb = new ComboBox<>();
-//		cmb.setTooltip(new Tooltip());
-		cmb.getItems().addAll(ProductType.values());
-		cmb.setMinWidth(150);
+		varetypetxt = new TextField();
+		varetypetxt.setMaxWidth(150);
+		varetypetxt.setText(product.getTheType().getDanishType());
+		// Gør tekstfeltet uneditable
+		varetypetxt.setEditable(false);
+		varetypetxt.setMouseTransparent(true);
+		varetypetxt.setFocusTraversable(false);
+		varetypetxt.setStyle("-fx-text-inner-color: grey;");
+		varetypetxt.setStyle("-fx-control-inner-background:lightgrey");
+		varetypetxt.setAlignment(Pos.CENTER);
 
 		// Indkøbsdato
 		Label indkøbsdatolbl = new Label("Indkøbsdato:");
 		indkøbsdatotxt = new TextField();
 		indkøbsdatotxt.setMaxWidth(150);
+		indkøbsdatotxt.setText(product.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
 		// Gør tekstfeltet uneditable
 		indkøbsdatotxt.setEditable(false);
 		indkøbsdatotxt.setMouseTransparent(true);
 		indkøbsdatotxt.setFocusTraversable(false);
-		String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy"));
-		indkøbsdatotxt.setText(date);
 		indkøbsdatotxt.setStyle("-fx-text-inner-color: grey;");
 		indkøbsdatotxt.setStyle("-fx-control-inner-background:lightgrey");
 		indkøbsdatotxt.setAlignment(Pos.CENTER);
@@ -104,19 +106,18 @@ public class UpdateProductPopUp {
 		Label mængdelbl = new Label("Mændge:");
 		mængdetxt = new TextField();
 		mængdetxt.setMaxWidth(150);
+		mængdetxt.setText(product.getAmount());
 
 		// Note
 		Label notelbl = new Label("Note:");
 		notetxt = new TextField();
 		notetxt.setMaxWidth(150);
+		notetxt.setText(product.getNote());
 		
 		//fejlmeddelser fixes
 		varenavnEmpty.setFont(new Font("Calibri", 16));
 		varenavnEmpty.setTextFill(Color.RED);
-		cmbEmpty.setFont(new Font("Calibri", 16));
-		cmbEmpty.setTextFill(Color.RED);
 		varenavnEmpty.setVisible(false);
-		cmbEmpty.setVisible(false);
 		
 		
 		// Teksfelterne
@@ -131,12 +132,12 @@ public class UpdateProductPopUp {
 		labelcolumn.setPadding(new Insets(5, 0, 0, 0));
 		labelcolumn.setAlignment(Pos.CENTER_RIGHT);
 		
-		txtcolumn.getChildren().addAll(varenavntxt, cmb, indkøbsdatotxt, mængdetxt, notetxt);
+		txtcolumn.getChildren().addAll(varenavntxt, varetypetxt, indkøbsdatotxt, mængdetxt, notetxt);
 		txtcolumn.setSpacing(12);
 		txtcolumn.setPadding(new Insets(5, 0, 0, 0));
 		txtcolumn.setAlignment(Pos.CENTER_RIGHT);
 		
-		fejlcolumn.getChildren().addAll(varenavnEmpty, cmbEmpty);
+		fejlcolumn.getChildren().addAll(varenavnEmpty);
 		fejlcolumn.setPadding(new Insets(0, 0, 0, 3));
 		fejlcolumn.setSpacing(20);
 		
@@ -162,29 +163,48 @@ public class UpdateProductPopUp {
 //		new Dropdown<ProductType>(cmb);
 	}
 
-	private void addProcuct() {
-		if (varenavntxt.getText().isEmpty() && cmb.getValue() == null) {
+	private void updateProduct(Menu menu, Product product) {
+		//Fejlmeddelse hvis der ikke er et varenavn
+		if (varenavntxt.getText().isEmpty()) {
 			varenavnEmpty.setVisible(true);
-			cmbEmpty.setVisible(true);
 		}
 		
-		if (varenavntxt.getText().isEmpty() && cmb.getValue() != null) {
-			varenavnEmpty.setVisible(true);
-			cmbEmpty.setVisible(false);
-		}
+		else if (!varenavntxt.getText().isEmpty()){
+			product.setName(varenavntxt.getText());
+			product.setAmount(mængdetxt.getText());
+			product.setNote(notetxt.getText());
+			productController.updateProduct(product);
+			menu.tbvOverview.refresh();
+
 		
-		else if (cmb.getValue() == null && !varenavntxt.getText().isEmpty()) {
-			cmbEmpty.setVisible(true);
-			varenavnEmpty.setVisible(false);
-		}
-		
-		else if (cmb.getValue() != null && !varenavntxt.getText().isEmpty()){
-		Product product = new Product(0, varenavntxt.getText(), LocalDate.now(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
-		productController.addProduct(product);
-		varenavntxt.clear();
-		mængdetxt.clear();
-		notetxt.clear();
-		menu.productList.add(product);	
+		// Giv feedback på hvad der er blevet opdateret
+//			if (product.getName() != varenavntxt.getText()) {
+//				System.out.println("varenavn er opdateret");
+//			}
+//			
+//			if (product.getAmount() != mængdetxt.getText()) {
+//				System.out.println("mængde er opdateret");
+//			}
+//			
+//			if (product.getNote() != notetxt.getText()) {
+//				System.out.println("Note opdateret");
+//			}
+//			
+//			if (product.getName() != varenavntxt.getText() && product.getAmount() != mængdetxt.getText()) {
+//				System.out.println("navn og mængde opdateret");
+//			}
+//			
+//			if (product.getName() != varenavntxt.getText() && product.getNote() != notetxt.getText()) {
+//				System.out.println("Navn og Note opdateret");
+//			}
+//			
+//			if (product.getAmount() != mængdetxt.getText() && product.getNote() != notetxt.getText()) {
+//				System.out.println("Mængde og note opdateret");
+//			}
+//			
+//			if (product.getName() != varenavntxt.getText() && product.getAmount() != mængdetxt.getText() && product.getNote() != notetxt.getText()) {
+//				System.out.println("Navn, mængde og note opdateret");
+//			}
 		}
 	}
 }

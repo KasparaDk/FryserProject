@@ -47,7 +47,7 @@ public class AddProductPopUp {
 		Button tilføj = new Button();
 		tilføj.setText("Tilføj Vare");
 		tilføj.setOnAction(e -> {
-			addProcuct();
+			addProduct();
 		});
 
 		Button annuller = new Button();
@@ -155,22 +155,26 @@ public class AddProductPopUp {
 //		new Dropdown<ProductType>(cmb);
 	}
 
-	private void addProcuct() {
+	private void addProduct() {
+		// Fejlmeddelse hvis der ikke er noget varenavn eller en varetype
 		if (varenavntxt.getText().isEmpty() && cmb.getValue() == null) {
 			varenavnEmpty.setVisible(true);
 			cmbEmpty.setVisible(true);
 		}
 		
+		// Fejlmeddelse hvis der ikke er noget varenavn
 		if (varenavntxt.getText().isEmpty() && cmb.getValue() != null) {
 			varenavnEmpty.setVisible(true);
 			cmbEmpty.setVisible(false);
 		}
 		
+		//Fejlmeddelse hvis der ikke er nogen varetype
 		else if (cmb.getValue() == null && !varenavntxt.getText().isEmpty()) {
 			cmbEmpty.setVisible(true);
 			varenavnEmpty.setVisible(false);
 		}
 		
+		//Tilføjelse af varen hvis både varenavn og varetype er udfyldt
 		else if (cmb.getValue() != null && !varenavntxt.getText().isEmpty()){
 		Product product = new Product(0, varenavntxt.getText(), LocalDate.now(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
 		productController.addProduct(product);
