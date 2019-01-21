@@ -182,6 +182,7 @@ public class AddProductPopUp {
 		mængdetxt.clear();
 		notetxt.clear();
 		menu.productList.add(product);	
+		//slet
 		}
 	}
 }

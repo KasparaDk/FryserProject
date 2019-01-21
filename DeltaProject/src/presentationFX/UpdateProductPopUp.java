@@ -205,6 +205,7 @@ public class UpdateProductPopUp {
 //			if (product.getName() != varenavntxt.getText() && product.getAmount() != mængdetxt.getText() && product.getNote() != notetxt.getText()) {
 //				System.out.println("Navn, mængde og note opdateret");
 //			}
+			//slet
 		}
 	}
 }
