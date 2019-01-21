@@ -1,5 +1,6 @@
 package presentationFX;
 
+import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -41,26 +42,27 @@ public class Menu {
 		stage.setTitle("Januar Projekt");
 		stage.setWidth(1500);
 		stage.setHeight(550);
-
+		
 		BorderPane borderPaneStart = new BorderPane();
 		start = new Scene(borderPaneStart);
-
+		borderPaneStart.setPadding(new Insets(0, 0, 0, 20));
+		borderPaneStart.setStyle("-fx-background-color: lightgray");
 		GridPane gridRight = new GridPane();
 
-		gridRight.setPadding(new Insets(0, 20, 20, 20));
+		gridRight.setPadding(new Insets(0, 10, 10, 10));
 		gridRight.setVgap(10);
 
 		HBox hboxSearch = new HBox();
 
 		// vores søgefelt
 		TextField textSearch = new TextField();
-//		textSearch.setMaxSize(2000, 2000);
 		textSearch.setAlignment(Pos.CENTER);
 		textSearch.setPromptText("Søg efter en vare");
 		textSearch.setFocusTraversable(false);
 		textSearch.setStyle("-fx-padding: 10 100 10 100;");
 		hboxSearch.setAlignment(Pos.CENTER);
 		hboxSearch.getChildren().addAll(textSearch);
+		hboxSearch.setStyle("-fx-padding: 10 0 10 0;");
 		
 		
 		// vores forskellige knapper
