@@ -162,7 +162,7 @@ public class Menu {
                     return true; // Filter matches for indkøbsdato
                 } else if (productSearch.getExpireDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")).toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches for udløbsdato
-                } else if (productSearch.getType().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (productSearch.getTheType().getDanishType().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches for typen
                 } else if (productSearch.getNote().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches for noten
