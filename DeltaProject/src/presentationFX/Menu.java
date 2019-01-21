@@ -70,6 +70,8 @@ public class Menu {
 		textSearch.setPromptText("Søg efter en vare");
 		textSearch.setFocusTraversable(false);
 		textSearch.setStyle("-fx-padding: 10 100 10 100;");
+		textSearch.setMaxWidth(500);
+		textSearch.setMinWidth(100);
 		topPane.setCenter(textSearch);
 		topPane.setLeft(statuslbl);
 		topPane.setRight(statuslbl1);
