@@ -79,7 +79,7 @@ public class Menu {
 		Button btnUpdate = new Button("Opdater vare");
 		btnUpdate.setPrefSize(300, 100);
 		btnUpdate.setFont(Font.font("Serif", FontWeight.BOLD, 30));
-		// btnUpdate.setOnAction(e -> Opdater());
+		 btnUpdate.setOnAction(e -> updateProduct());
 		
 		Button btnCheckDate = new Button("Tjek vare");
 		btnCheckDate.setPrefSize(300, 100);
@@ -215,6 +215,12 @@ public class Menu {
 	private void addProduct() {
 		AddProductPopUp tilføj  = new AddProductPopUp();
 		tilføj.start(new Stage(), this);
+	}
+	
+	private void updateProduct() {
+		Product product = (Product) tbvOverview.getSelectionModel().getSelectedItem();
+			UpdateProductPopUp updateproduct = new UpdateProductPopUp();
+			updateproduct.start(new Stage(), this, product);
 	}
 	
 //	private void checkDate() {

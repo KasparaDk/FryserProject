@@ -36,12 +36,14 @@ public class UpdateProductPopUp {
 	private Label varenavnEmpty = new Label("*");
 	private Label cmbEmpty = new Label("*");
 	private Menu menu;
+	private TableView tbvOverview;
 //	private ProductTypeConverter converter = new ProductTypeConverter();
 
 	//test
 	
-	public void start(Stage stage, Menu menu) {
+	public void start(Stage stage, Menu menu, Product product) {
 		this.menu = menu;
+		this.tbvOverview = tbvOverview;
 		Stage popUp = new Stage();
 		popUp.setTitle("Opdater Vare");
 		popUp.setHeight(300);
@@ -55,6 +57,7 @@ public class UpdateProductPopUp {
 			addProcuct();
 		});
 
+		
 		Button annuller = new Button();
 		annuller.setText("Annuller");
 		annuller.setOnAction(e -> {
@@ -71,7 +74,7 @@ public class UpdateProductPopUp {
 		Label varenavnlbl = new Label("Varenavn:");
 		varenavntxt = new TextField();
 		varenavntxt.setMaxWidth(150);
-		varenavnlbl.setText();
+		varenavnlbl.setText("");
 		
 
 		// Varetype
