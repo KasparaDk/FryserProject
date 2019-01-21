@@ -27,6 +27,7 @@ import logic.ProductType;
 
 public class UpdateProductPopUp {
 
+	private Stage popUp = new Stage();
 	private ProductController productController = new ProductController(DatabaseConnection.newConnection("JanProjectDB"));
 	private TextField varenavntxt;
 	private TextField indkøbsdatotxt;
@@ -44,7 +45,6 @@ public class UpdateProductPopUp {
 	public void start(Stage stage, Menu menu, Product product) {
 		this.menu = menu;
 		this.tbvOverview = tbvOverview;
-		Stage popUp = new Stage();
 		popUp.setTitle("Opdater Vare");
 		popUp.setHeight(320);
 		popUp.setWidth(400);
@@ -176,12 +176,14 @@ public class UpdateProductPopUp {
 		}
 		
 		else if (!varenavntxt.getText().isEmpty()){
+			menu.statuslbl.setText(varenavntxt.getText() + " er blevet opdateret");
+			menu.statuslbl1.setText(varenavntxt.getText() + " er blevet opdateret");
 			product.setName(varenavntxt.getText());
 			product.setAmount(mængdetxt.getText());
 			product.setNote(notetxt.getText());
 			productController.updateProduct(product);
 			menu.tbvOverview.refresh();
-			vareOpdateret.setVisible(true);
+			popUp.close();
 			
 			
 		

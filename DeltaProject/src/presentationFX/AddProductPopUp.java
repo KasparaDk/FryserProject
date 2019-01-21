@@ -176,13 +176,14 @@ public class AddProductPopUp {
 		
 		//Tilføjelse af varen hvis både varenavn og varetype er udfyldt
 		else if (cmb.getValue() != null && !varenavntxt.getText().isEmpty()){
+		menu.statuslbl.setText(varenavntxt.getText() + " er blevet tilføjet");
+		menu.statuslbl1.setText(varenavntxt.getText() + " er blevet tilføjet");
 		Product product = new Product(0, varenavntxt.getText(), LocalDate.now(), mængdetxt.getText(), cmb.getValue(), notetxt.getText());
 		productController.addProduct(product);
 		varenavntxt.clear();
 		mængdetxt.clear();
 		notetxt.clear();
-		menu.productList.add(product);	
-		//slet
+		menu.productList.add(product);
 		}
 	}
 }
