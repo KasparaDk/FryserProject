@@ -34,6 +34,7 @@ public class UpdateProductPopUp {
 	private TextField notetxt;
 	private TextField varetypetxt;
 	private Label varenavnEmpty = new Label("*");
+	private Label vareOpdateret = new Label("Den valgte vare er nu opdateret");
 	private Menu menu;
 	private TableView tbvOverview;
 //	private ProductTypeConverter converter = new ProductTypeConverter();
@@ -45,7 +46,7 @@ public class UpdateProductPopUp {
 		this.tbvOverview = tbvOverview;
 		Stage popUp = new Stage();
 		popUp.setTitle("Opdater Vare");
-		popUp.setHeight(300);
+		popUp.setHeight(320);
 		popUp.setWidth(400);
 		popUp.setResizable(false);
 		// Test		
@@ -68,6 +69,8 @@ public class UpdateProductPopUp {
 		buttonPane.setPadding(new Insets(20, 50, 20, 50));
 		buttonPane.setLeft(annuller);
 		buttonPane.setRight(tilføj);
+		buttonPane.setTop(vareOpdateret);
+		buttonPane.setAlignment(vareOpdateret, Pos.CENTER);
 		
 		// Varenavn
 		Label varenavnlbl = new Label("Varenavn:");
@@ -118,6 +121,9 @@ public class UpdateProductPopUp {
 		varenavnEmpty.setFont(new Font("Calibri", 16));
 		varenavnEmpty.setTextFill(Color.RED);
 		varenavnEmpty.setVisible(false);
+		vareOpdateret.setFont(new Font("Calibri", 14));
+		vareOpdateret.setVisible(false);
+		vareOpdateret.setPadding(new Insets(0, 0, 10, 0));
 		
 		
 		// Teksfelterne
@@ -175,9 +181,12 @@ public class UpdateProductPopUp {
 			product.setNote(notetxt.getText());
 			productController.updateProduct(product);
 			menu.tbvOverview.refresh();
-
+			vareOpdateret.setVisible(true);
+			
+			
 		
 		// Giv feedback på hvad der er blevet opdateret
+		// Fuck det her
 //			if (product.getName() != varenavntxt.getText()) {
 //				System.out.println("varenavn er opdateret");
 //			}
