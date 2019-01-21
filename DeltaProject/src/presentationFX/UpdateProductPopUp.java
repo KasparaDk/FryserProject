@@ -38,6 +38,7 @@ public class UpdateProductPopUp {
 	private Menu menu;
 //	private ProductTypeConverter converter = new ProductTypeConverter();
 
+	//test
 	public void start(Stage stage, Menu menu) {
 		this.menu = menu;
 		Stage popUp = new Stage();
