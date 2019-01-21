@@ -115,15 +115,15 @@ public class Menu {
 			return new SimpleIntegerProperty(product.daysBetweenTwoDates()).asObject();
 		});
 
-//		typeCol.setCellValueFactory(e -> {
-//			Product product = e.getValue();
-//			return new SimpleStringProperty(product.getType());
-//		});
+		typeCol.setCellValueFactory(e -> {
+			Product product = e.getValue();
+			return new SimpleStringProperty(product.getTheType().getDanishType());
+		});
 
 
 //		expirationCol.setCellValueFactory(new PropertyValueFactory("Udløbsdato"));
-		typeCol.setText("Type");
-		typeCol.setCellValueFactory(new PropertyValueFactory("type"));
+//		typeCol.setText("Type");
+//		typeCol.setCellValueFactory(new PropertyValueFactory("type"));
 		noteCol.setText("Note");
 		noteCol.setCellValueFactory(new PropertyValueFactory("note"));
 		amountCol.setText("Mængde");
