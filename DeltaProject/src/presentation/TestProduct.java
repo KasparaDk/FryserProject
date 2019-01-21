@@ -48,7 +48,9 @@ public class TestProduct {
 		productController.deleteProduct(test1);
 	}
 	public void tjek() {
-		test.checkDate();
+		List<Product> product2 = productController.getAllProducts();
+		for (Product product : product2)
+		product.checkDate();
 	}
 	
 	public void getDate() {
