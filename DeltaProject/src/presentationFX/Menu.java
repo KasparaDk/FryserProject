@@ -2,6 +2,7 @@ package presentationFX;
 
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,6 +18,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,14 +42,15 @@ public class Menu {
 	Stage stage;
 	Scene start;
 	public TableView<Product> tbvOverview = new TableView();
-	private ProductController productController = new ProductController(DatabaseConnection.newConnection("JanProjectDB"));
+	private ProductController productController = new ProductController(
+			DatabaseConnection.newConnection("JanProjectDB"));
 
 	public void start(Stage stage) {
 
 		stage.setTitle("Januar Projekt");
 		stage.setWidth(1500);
 		stage.setHeight(550);
-		
+
 		BorderPane borderPaneStart = new BorderPane();
 		start = new Scene(borderPaneStart);
 		borderPaneStart.setPadding(new Insets(0, 0, 0, 20));
@@ -67,8 +71,7 @@ public class Menu {
 		hboxSearch.setAlignment(Pos.CENTER);
 		hboxSearch.getChildren().addAll(textSearch);
 		hboxSearch.setStyle("-fx-padding: 10 0 10 0;");
-		
-		
+
 		// vores forskellige knapper
 		Button btnCreate = new Button("Tilføj vare");
 		btnCreate.setPrefSize(300, 100);
@@ -83,13 +86,13 @@ public class Menu {
 		Button btnUpdate = new Button("Opdater vare");
 		btnUpdate.setPrefSize(300, 100);
 		btnUpdate.setFont(Font.font("Serif", FontWeight.BOLD, 30));
-		 btnUpdate.setOnAction(e -> updateProduct());
-		
+		btnUpdate.setOnAction(e -> updateProduct());
+
 		Button btnCheckDate = new Button("Tjek vare");
 		btnCheckDate.setPrefSize(300, 100);
 		btnCheckDate.setFont(Font.font("Serif", FontWeight.BOLD, 30));
 //		btnCheckDate.setOnAction(e -> checkDate());
-		
+
 		// vores tableview
 		tbvOverview.setEditable(true);
 
@@ -105,17 +108,19 @@ public class Menu {
 		nameCol.setCellValueFactory(new PropertyValueFactory("name"));
 		purchaseCol.setCellValueFactory(e -> {
 			Product product = e.getValue();
-			return new SimpleStringProperty(product.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
+			return new SimpleStringProperty(
+					product.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
 		});
 		expirationCol.setCellValueFactory(e -> {
 			Product product = e.getValue();
-			
-			return new SimpleStringProperty(product.getExpireDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
+
+			return new SimpleStringProperty(
+					product.getExpireDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
 		});
-		
-		daysLeftCol.setCellValueFactory(e ->  {
+
+		daysLeftCol.setCellValueFactory(e -> {
 			Product product = e.getValue();
-			
+
 			return new SimpleIntegerProperty(product.daysBetweenTwoDates()).asObject();
 		});
 
@@ -123,7 +128,6 @@ public class Menu {
 			Product product = e.getValue();
 			return new SimpleStringProperty(product.getTheType().getDanishType());
 		});
-
 
 //		expirationCol.setCellValueFactory(new PropertyValueFactory("Udløbsdato"));
 //		typeCol.setText("Type");
@@ -145,45 +149,46 @@ public class Menu {
 		tbvOverview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 		tbvOverview.setEditable(true);
-		
+
 		// Søge funktion
 		FilteredList<Product> filteredData = new FilteredList<>(productList, p -> true);
-		
+
 		textSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(productSearch -> {
-                // Hvis filter text er tom, hvis alle vare 
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+			filteredData.setPredicate(productSearch -> {
+				// Hvis filter text er tom, hvis alle vare
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
 
-                // Sammenligner felter i vores objekt med filter
-                String lowerCaseFilter = newValue.toLowerCase();
+				// Sammenligner felter i vores objekt med filter
+				String lowerCaseFilter = newValue.toLowerCase();
 
-                // Filter matches med navn
-                if (productSearch.getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (productSearch.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")).toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches for indkøbsdato
-                } else if (productSearch.getExpireDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")).toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches for udløbsdato
-                } else if (productSearch.getTheType().getDanishType().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches for typen
-                } else if (productSearch.getNote().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches for noten
-                } else if (productSearch.getAmount().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches for mængden
-                } 
-                return false; // Ingen match
-            });
-        });
-		
-		 SortedList<Product> sortedData = new SortedList<>(filteredData);
+				// Filter matches med navn
+				if (productSearch.getName().toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				} else if (productSearch.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy"))
+						.toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches for indkøbsdato
+				} else if (productSearch.getExpireDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy"))
+						.toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches for udløbsdato
+				} else if (productSearch.getTheType().getDanishType().toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches for typen
+				} else if (productSearch.getNote().toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches for noten
+				} else if (productSearch.getAmount().toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches for mængden
+				}
+				return false; // Ingen match
+			});
+		});
 
-		 	// Forbinder SortedList comparator til vores TableView comparator
-	        sortedData.comparatorProperty().bind(tbvOverview.comparatorProperty());
-	        // Tilføjer sorteret og filtreret data til vores TableView
-	        tbvOverview.setItems(sortedData);
+		SortedList<Product> sortedData = new SortedList<>(filteredData);
 
+		// Forbinder SortedList comparator til vores TableView comparator
+		sortedData.comparatorProperty().bind(tbvOverview.comparatorProperty());
+		// Tilføjer sorteret og filtreret data til vores TableView
+		tbvOverview.setItems(sortedData);
 
 		// samling på det hele
 		borderPaneStart.setCenter(tbvOverview);
@@ -202,59 +207,28 @@ public class Menu {
 		int selectedIndex = tbvOverview.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
 			Product product = (Product) tbvOverview.getItems().get(selectedIndex);
-			final Stage dialog = new Stage();
-			dialog.initModality(Modality.APPLICATION_MODAL);
-			dialog.initOwner(stage);
-			BorderPane bppopup = new BorderPane();
-			BorderPane bpBottom = new BorderPane();
-			BorderPane bpTop = new BorderPane();
-			bpTop.setPadding(new Insets(1, 1, 1, 1));
-			bpBottom.setPadding(new Insets(20, 50, 20, 50));
-			HBox hboxButtons = new HBox();
-			hboxButtons.setPadding(new Insets(100, 100, 100, 100));
-			
-			String getName = product.getName();
-			String getNote = product.getNote();
-			String getAmount = product.getAmount();
-			Label labelbesked = new Label();
-			Label labelvare = new Label();
-			labelbesked.setText("vil du slette denne varelinje:");
-			labelbesked.setFont(new Font("Arial", 15));
-			labelvare.setPadding(new Insets(50, 0, 0, 0));
-			labelvare.setText(getName + ", " + getAmount + ", " + getNote);
-			labelvare.setFont(new Font("Arial", 15));
-			
-			Button btnDelete = new Button("OK");
-			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent arg0) {
-					productList.remove(selectedIndex);
-					productController.deleteProduct(product);
-					dialog.close();
-				}
-			});
-					
-			Button btnAnnuler = new Button("Annuler");
-			btnAnnuler.setOnAction(e -> dialog.close());
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Slet");
+			alert.setHeaderText("Er du sikker på at du vil slette denne vare?");
+			alert.setContentText(
+					product.getName() + " - mængde: " + product.getAmount() + " - note: " + product.getNote());
+			ButtonType buttonTypeOkay = new ButtonType("OK", ButtonData.OK_DONE);
+			ButtonType buttonTypeAnnuller = new ButtonType("Annuller", ButtonData.CANCEL_CLOSE);
+			alert.getButtonTypes().setAll(buttonTypeAnnuller, buttonTypeOkay);
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOkay) {
+				productList.remove(selectedIndex);
+				productController.deleteProduct(product);
 				
-			hboxButtons.setAlignment(Pos.CENTER);
-			hboxButtons.getChildren().addAll(btnAnnuler, btnDelete);
+			}	if (result.get() != buttonTypeOkay) {
+					alert.close();
+				}
 			
-			bppopup.setBottom(bpBottom);
-			bppopup.setTop(bpTop);
-			bpTop.setTop(labelbesked);
-			bpTop.setBottom(labelvare);
-			bpBottom.setRight(btnDelete);
-			bpBottom.setLeft(btnAnnuler);
-			
-			Scene dialogScene = new Scene(bppopup, 300, 200);
-			dialog.setScene(dialogScene);
-			dialog.show();
+		
+
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
-			// alert.initOwner( start.getPrimaryStage());
 			alert.setTitle("Ingen vare markeret");
 			alert.setHeaderText("Ingen vare markeret");
 			alert.setContentText("Marker en linje inden du trykker på slet");
@@ -262,18 +236,18 @@ public class Menu {
 			alert.showAndWait();
 		}
 	}
-	
+
 	private void addProduct() {
-		AddProductPopUp tilføj  = new AddProductPopUp();
+		AddProductPopUp tilføj = new AddProductPopUp();
 		tilføj.start(new Stage(), this);
 	}
-	
+
 	private void updateProduct() {
 		Product product = (Product) tbvOverview.getSelectionModel().getSelectedItem();
-			UpdateProductPopUp updateproduct = new UpdateProductPopUp();
-			updateproduct.start(new Stage(), this, product);
+		UpdateProductPopUp updateproduct = new UpdateProductPopUp();
+		updateproduct.start(new Stage(), this, product);
 	}
-	
+
 //	private void checkDate() {
 //		CheckDate openCheckDate = new CheckDate();
 //		openCheckDate.start(new Stage(), this);
