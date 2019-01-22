@@ -93,11 +93,6 @@ public class Menu {
 		btnUpdate.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
 		btnUpdate.setOnAction(e -> updateProduct());
 
-		Button btnCheckDate = new Button("Tjek vare");
-		btnCheckDate.setPrefSize(300, 100);
-		btnCheckDate.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
-//		btnCheckDate.setOnAction(e -> checkDate());
-
 		// vores tableview
 		TableColumn nameCol = new TableColumn("Navn");
 		TableColumn<Product, String> purchaseCol = new TableColumn("Indkøbsdato");
@@ -196,7 +191,6 @@ public class Menu {
 		gridRight.add(btnCreate, 2, 0);
 		gridRight.add(btnRemove, 2, 1);
 		gridRight.add(btnUpdate, 2, 2);
-		gridRight.add(btnCheckDate, 2, 3);
 
 		stage.setScene(start);
 		stage.show();
@@ -253,8 +247,4 @@ public class Menu {
 		}
 	}
 
-//	private void checkDate() {
-//		CheckDate openCheckDate = new CheckDate();
-//		openCheckDate.start(new Stage(), this);
-//	}
 }
