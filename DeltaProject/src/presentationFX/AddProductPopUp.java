@@ -33,7 +33,6 @@ public class AddProductPopUp {
 	private Label varenavnEmpty = new Label("*");
 	private Label cmbEmpty = new Label("*");
 	private Menu menu;
-//	private ProductTypeConverter converter = new ProductTypeConverter();
 
 	public void start(Stage stage, Menu menu) {
 		this.menu = menu;
@@ -42,7 +41,7 @@ public class AddProductPopUp {
 		popUp.setHeight(300);
 		popUp.setWidth(400);
 		popUp.setResizable(false);
-		// Test		
+
 		// Knapperne
 		Button tilføj = new Button();
 		tilføj.setText("Tilføj Vare");
@@ -70,10 +69,9 @@ public class AddProductPopUp {
 
 		// Varetype
 		Label varetypelbl = new Label("Varetype:");
+
 		// Dropdown menu med varetyper
-//		ComboBox<ProductType> 
 		cmb = new ComboBox<>();
-//		cmb.setTooltip(new Tooltip());
 		cmb.getItems().addAll(ProductType.values());
 		cmb.setMinWidth(150);
 
@@ -81,6 +79,7 @@ public class AddProductPopUp {
 		Label indkøbsdatolbl = new Label("Indkøbsdato:");
 		indkøbsdatotxt = new TextField();
 		indkøbsdatotxt.setMaxWidth(150);
+		
 		// Gør tekstfeltet uneditable
 		indkøbsdatotxt.setEditable(false);
 		indkøbsdatotxt.setMouseTransparent(true);
@@ -152,7 +151,6 @@ public class AddProductPopUp {
 		popUp.setScene(scene);
 		popUp.show();
 
-//		new Dropdown<ProductType>(cmb);
 	}
 
 	private void addProduct() {

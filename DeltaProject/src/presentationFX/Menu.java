@@ -1,6 +1,5 @@
 package presentationFX;
 
-import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -10,8 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -27,10 +24,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.DatabaseConnection;
 import logic.Product;
@@ -81,32 +76,29 @@ public class Menu {
 		topPane.setMargin(textSearch, new Insets(10, 10, 10, 10));
 		topPane.setMargin(statuslbl1, new Insets(20, 20, 0, 0));
 		topPane.setMargin(statuslbl, new Insets(20, 0, 0, 0));
-//		topPane.setPadding(new Insets(10, 10, 10, 10));
 
 		// vores forskellige knapper
 		Button btnCreate = new Button("Tilføj vare");
 		btnCreate.setPrefSize(300, 100);
-		btnCreate.setFont(Font.font("Serif", FontWeight.BOLD, 30));
+		btnCreate.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
 		btnCreate.setOnAction(e -> addProduct());
 
 		Button btnRemove = new Button("Slet vare");
 		btnRemove.setPrefSize(300, 100);
-		btnRemove.setFont(Font.font("Serif", FontWeight.BOLD, 30));
+		btnRemove.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
 		btnRemove.setOnAction(e -> DeleteRow());
 
 		Button btnUpdate = new Button("Opdater vare");
 		btnUpdate.setPrefSize(300, 100);
-		btnUpdate.setFont(Font.font("Serif", FontWeight.BOLD, 30));
+		btnUpdate.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
 		btnUpdate.setOnAction(e -> updateProduct());
 
 		Button btnCheckDate = new Button("Tjek vare");
 		btnCheckDate.setPrefSize(300, 100);
-		btnCheckDate.setFont(Font.font("Serif", FontWeight.BOLD, 30));
+		btnCheckDate.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
 //		btnCheckDate.setOnAction(e -> checkDate());
 
 		// vores tableview
-		tbvOverview.setEditable(true);
-
 		TableColumn nameCol = new TableColumn("Navn");
 		TableColumn<Product, String> purchaseCol = new TableColumn("Indkøbsdato");
 		TableColumn<Product, String> expirationCol = new TableColumn("Udløbsdato");
@@ -140,9 +132,6 @@ public class Menu {
 			return new SimpleStringProperty(product.getTheType().getDanishType());
 		});
 
-//		expirationCol.setCellValueFactory(new PropertyValueFactory("Udløbsdato"));
-//		typeCol.setText("Type");
-//		typeCol.setCellValueFactory(new PropertyValueFactory("type"));
 		noteCol.setText("Note");
 		noteCol.setCellValueFactory(new PropertyValueFactory("note"));
 		amountCol.setText("Mængde");
@@ -151,22 +140,18 @@ public class Menu {
 		daysLeftCol.setMaxWidth(50);
 
 		tbvOverview.getColumns().addAll(nameCol, purchaseCol, expirationCol, daysLeftCol, typeCol, noteCol, amountCol);
+
 		productList = FXCollections.observableList(productController.getAllProducts());
-//		Product[] productArr = new Product[productList.size()];
-//		productArr = productList.toArray(productArr);
-//		FXCollections.observableArrayList();
 		tbvOverview.setItems(productList);
 
 		tbvOverview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-		tbvOverview.setEditable(true);
 
 		// Søge funktion
 		FilteredList<Product> filteredData = new FilteredList<>(productList, p -> true);
 
 		textSearch.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(productSearch -> {
-				// Hvis filter text er tom, hvis alle vare
+				// Hvis filter text er tom, vis alle vare
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
 				}
@@ -232,12 +217,11 @@ public class Menu {
 				statuslbl1.setText(product.getName() + " er blevet slettet");
 				productList.remove(selectedIndex);
 				productController.deleteProduct(product);
-				
-			}	if (result.get() != buttonTypeOkay) {
-					alert.close();
-				}
-			
-		
+
+			}
+			if (result.get() != buttonTypeOkay) {
+				alert.close();
+			}
 
 		} else {
 			// Nothing selected.
@@ -245,7 +229,6 @@ public class Menu {
 			alert.setTitle("Ingen vare markeret");
 			alert.setHeaderText("Ingen vare markeret");
 			alert.setContentText("Marker en linje inden du trykker på slet");
-
 			alert.showAndWait();
 		}
 	}
