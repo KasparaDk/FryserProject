@@ -74,17 +74,18 @@ public class AddProductPopUp {
 		// Tekstfelterne og Combobox sættes op
 		// Varenavn
 		productnametxt = new TextField();
-		productnametxt.setMaxWidth(150);
+		productnametxt.setMaxWidth(180);
 		productnametxt.setPromptText("Fx Pommes Frites");
+		menu.addTextLimiter(productnametxt, 20);
 		
 		// Dropdown menu med varetyper
 		producttypecmb = new ComboBox<>();
 		producttypecmb.getItems().addAll(ProductType.values());
-		producttypecmb.setMinWidth(150);
+		producttypecmb.setMinWidth(180);
 		
 		// Indkøbsdato - uneditable og rigtig format
 		buydatetxt = new TextField();
-		buydatetxt.setMaxWidth(150);
+		buydatetxt.setMaxWidth(180);
 		buydatetxt.setEditable(false);
 		buydatetxt.setMouseTransparent(true);
 		buydatetxt.setFocusTraversable(false);
@@ -96,13 +97,15 @@ public class AddProductPopUp {
 		
 		// Mængde
 		amounttxt = new TextField();
-		amounttxt.setMaxWidth(150);
+		amounttxt.setMaxWidth(180);
 		amounttxt.setPromptText("Skrives i gram");
+		menu.addTextLimiter(amounttxt, 20);
 		
 		// Note
 		notetxt = new TextField();
-		notetxt.setMaxWidth(150);
+		notetxt.setMaxWidth(180);
 		notetxt.setPromptText("Fx Højre side i fryseren");
+		menu.addTextLimiter(notetxt, 20);
 		
 		// Fejlmeddelser
 		productNameEmpty.setFont(new Font("Calibri", 16));
@@ -120,7 +123,7 @@ public class AddProductPopUp {
 		// Labels indsættes i labelcolumn
 		labelcolumn.getChildren().addAll(productnamelbl, producttypelbl, buydatelbl, amountlbl, notelbl);
 		labelcolumn.setSpacing(20);
-		labelcolumn.setPadding(new Insets(5, 0, 0, 0));
+		labelcolumn.setPadding(new Insets(5, 5, 0, 0));
 		labelcolumn.setAlignment(Pos.CENTER_RIGHT);
 		
 		// Tekstfelterne indsættes i txtcolumn

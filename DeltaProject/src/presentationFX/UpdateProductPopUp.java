@@ -1,7 +1,6 @@
 package presentationFX;
 
 import java.time.format.DateTimeFormatter;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,148 +23,149 @@ public class UpdateProductPopUp {
 	private Stage popUp = new Stage();
 	private ProductController productController = new ProductController(
 			DatabaseConnection.newConnection("JanProjectDB"));
-	private TextField varenavntxt;
-	private TextField indkøbsdatotxt;
-	private TextField mængdetxt;
+	private TextField productnametxt;
+	private TextField buydatetxt;
+	private TextField amounttxt;
 	private TextField notetxt;
-	private TextField varetypetxt;
-	private Label varenavnEmpty = new Label("*");
-	private Label vareOpdateret = new Label("Den valgte vare er nu opdateret");
+	private TextField producttypetxt;
+	private Label productnameEmpty = new Label("*");
 	private Menu menu;
 
 
 	public void start(Stage stage, Menu menu, Product product) {
+		// Selve vinduet sættes op
 		this.menu = menu;
 		popUp.setTitle("Opdater Vare");
 		popUp.setHeight(320);
 		popUp.setWidth(400);
 		popUp.setResizable(false);
 
-		// Knapperne
-		Button tilføj = new Button();
-		tilføj.setText("Opdater");
-		tilføj.setOnAction(e -> {
+		// Knapperne sættes op
+		Button add = new Button();
+		add.setText("Opdater");
+		add.setOnAction(e -> {
 			updateProduct(menu, product);
 		});
 
-		Button annuller = new Button();
-		annuller.setText("Annuller");
-		annuller.setOnAction(e -> {
+		Button cancel = new Button();
+		cancel.setText("Annuller");
+		cancel.setOnAction(e -> {
 			popUp.hide();
 		});
 
 		// BorderPane til knapperne
 		BorderPane buttonPane = new BorderPane();
 		buttonPane.setPadding(new Insets(20, 50, 20, 50));
-		buttonPane.setLeft(annuller);
-		buttonPane.setRight(tilføj);
-		buttonPane.setTop(vareOpdateret);
-//		buttonPane.setAlignment(vareOpdateret, Pos.CENTER);
+		buttonPane.setLeft(cancel);
+		buttonPane.setRight(add);
 
-		// Varenavn
-		Label varenavnlbl = new Label("Varenavn:");
-		varenavntxt = new TextField();
-		varenavntxt.setMaxWidth(150);
-		varenavntxt.setText(product.getName());
+		// Labels sættes op
+		Label productnamelbl = new Label("Varenavn:");		
+		Label producttypelbl = new Label("Varetype:");
+		Label buydatelbl = new Label("Indkøbsdato:");
+		Label amountlbl = new Label("Mændge:");
+		Label notelbl = new Label("Note:");
+		
+		// Tekstfelterne sættes op
+		productnametxt = new TextField();
+		productnametxt.setMaxWidth(180);
+		productnametxt.setText(product.getName());
+		menu.addTextLimiter(productnametxt, 20);
+		
+		// Varetype - uneditable
+		producttypetxt = new TextField();
+		producttypetxt.setMaxWidth(180);
+		producttypetxt.setText(product.getTheType().getDanishType());
+		producttypetxt.setEditable(false);
+		producttypetxt.setMouseTransparent(true);
+		producttypetxt.setFocusTraversable(false);
+		producttypetxt.setStyle("-fx-text-inner-color: grey;");
+		producttypetxt.setStyle("-fx-control-inner-background:lightgrey");
+		producttypetxt.setAlignment(Pos.CENTER);
 
-		// Varetype
-		Label varetypelbl = new Label("Varetype:");
-		varetypetxt = new TextField();
-		varetypetxt.setMaxWidth(150);
-		varetypetxt.setText(product.getTheType().getDanishType());
-		// Gør tekstfeltet uneditable
-		varetypetxt.setEditable(false);
-		varetypetxt.setMouseTransparent(true);
-		varetypetxt.setFocusTraversable(false);
-		varetypetxt.setStyle("-fx-text-inner-color: grey;");
-		varetypetxt.setStyle("-fx-control-inner-background:lightgrey");
-		varetypetxt.setAlignment(Pos.CENTER);
-
-		// Indkøbsdato
-		Label indkøbsdatolbl = new Label("Indkøbsdato:");
-		indkøbsdatotxt = new TextField();
-		indkøbsdatotxt.setMaxWidth(150);
-		indkøbsdatotxt.setText(product.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
-		// Gør tekstfeltet uneditable
-		indkøbsdatotxt.setEditable(false);
-		indkøbsdatotxt.setMouseTransparent(true);
-		indkøbsdatotxt.setFocusTraversable(false);
-		indkøbsdatotxt.setStyle("-fx-text-inner-color: grey;");
-		indkøbsdatotxt.setStyle("-fx-control-inner-background:lightgrey");
-		indkøbsdatotxt.setAlignment(Pos.CENTER);
+		// Indkøbsdato - uneditable og rigtig format
+		buydatetxt = new TextField();
+		buydatetxt.setMaxWidth(180);
+		buydatetxt.setText(product.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
+		buydatetxt.setEditable(false);
+		buydatetxt.setMouseTransparent(true);
+		buydatetxt.setFocusTraversable(false);
+		buydatetxt.setStyle("-fx-text-inner-color: grey;");
+		buydatetxt.setStyle("-fx-control-inner-background:lightgrey");
+		buydatetxt.setAlignment(Pos.CENTER);
 
 		// Mængde
-		Label mængdelbl = new Label("Mændge:");
-		mængdetxt = new TextField();
-		mængdetxt.setMaxWidth(150);
-		mængdetxt.setText(product.getAmount());
+		amounttxt = new TextField();
+		amounttxt.setMaxWidth(180);
+		amounttxt.setText(product.getAmount());
+		menu.addTextLimiter(amounttxt, 20);
 
 		// Note
-		Label notelbl = new Label("Note:");
 		notetxt = new TextField();
-		notetxt.setMaxWidth(150);
+		notetxt.setMaxWidth(180);
 		notetxt.setText(product.getNote());
+		menu.addTextLimiter(notetxt, 20);
 
 		// fejlmeddelser fixes
-		varenavnEmpty.setFont(new Font("Calibri", 16));
-		varenavnEmpty.setTextFill(Color.RED);
-		varenavnEmpty.setVisible(false);
-		vareOpdateret.setFont(new Font("Calibri", 14));
-		vareOpdateret.setVisible(false);
-		vareOpdateret.setPadding(new Insets(0, 0, 10, 0));
+		productnameEmpty.setFont(new Font("Calibri", 16));
+		productnameEmpty.setTextFill(Color.RED);
+		productnameEmpty.setVisible(false);
 
 		// Tekstfelterne - Vbokse til at indsætte tingene
 		VBox labelcolumn = new VBox();
 		VBox txtcolumn = new VBox();
-		VBox fejlcolumn = new VBox();
+		VBox errorcolumn = new VBox();
 
-		// Indsætter tingene i Vboksene
-		labelcolumn.getChildren().addAll(varenavnlbl, varetypelbl, indkøbsdatolbl, mængdelbl, notelbl);
+		// Labels indsættes i labelcolumn
+		labelcolumn.getChildren().addAll(productnamelbl, producttypelbl, buydatelbl, amountlbl, notelbl);
 		labelcolumn.setSpacing(20);
-		labelcolumn.setPadding(new Insets(5, 0, 0, 0));
+		labelcolumn.setPadding(new Insets(5, 5, 0, 0));
 		labelcolumn.setAlignment(Pos.CENTER_RIGHT);
 
-		txtcolumn.getChildren().addAll(varenavntxt, varetypetxt, indkøbsdatotxt, mængdetxt, notetxt);
+		// Tekstfelterne indsættes i txtcolumn
+		txtcolumn.getChildren().addAll(productnametxt, producttypetxt, buydatetxt, amounttxt, notetxt);
 		txtcolumn.setSpacing(12);
 		txtcolumn.setPadding(new Insets(5, 0, 0, 0));
 		txtcolumn.setAlignment(Pos.CENTER_RIGHT);
 
-		fejlcolumn.getChildren().addAll(varenavnEmpty);
-		fejlcolumn.setPadding(new Insets(0, 0, 0, 3));
-		fejlcolumn.setSpacing(20);
+		// Fejlmeddelserne indsættes i fejlcolumn
+		errorcolumn.getChildren().addAll(productnameEmpty);
+		errorcolumn.setPadding(new Insets(0, 0, 0, 3));
+		errorcolumn.setSpacing(20);
 
 		// GridPane med textfelterne
-		GridPane textFields = new GridPane();
-		textFields.getColumnConstraints().add(new ColumnConstraints(110));
-		textFields.getColumnConstraints().add(new ColumnConstraints(183));
-		textFields.add(labelcolumn, 0, 0);
-		textFields.add(txtcolumn, 1, 0);
-		textFields.add(fejlcolumn, 2, 0);
+		GridPane centerPane = new GridPane();
+		centerPane.getColumnConstraints().add(new ColumnConstraints(110));
+		centerPane.getColumnConstraints().add(new ColumnConstraints(183));
+		centerPane.add(labelcolumn, 0, 0);
+		centerPane.add(txtcolumn, 1, 0);
+		centerPane.add(errorcolumn, 2, 0);
 
 		BorderPane layout = new BorderPane();
 		layout.setPadding(new Insets(20, 20, 10, 20));
-
-		// Knapper til højre, textfelter i center
-		layout.setBottom(buttonPane);
-		layout.setCenter(textFields);
-
 		Scene scene = new Scene(layout);
+
+		// Knapper til højre, columns i center
+		layout.setBottom(buttonPane);
+		layout.setCenter(centerPane);
+
 		popUp.setScene(scene);
 		popUp.show();
 
 	}
 
 	private void updateProduct(Menu menu, Product product) {
-		// Fejlmeddelse hvis der ikke er et varenavn
-		if (varenavntxt.getText().isEmpty()) {
-			varenavnEmpty.setVisible(true);
+		// Ingen varenavn
+		if (productnametxt.getText().isEmpty()) {
+			productnameEmpty.setVisible(true);
 		}
 
-		else if (!varenavntxt.getText().isEmpty()) {
-			menu.statuslbl.setText(varenavntxt.getText() + " er blevet opdateret");
-			menu.statuslbl1.setText(varenavntxt.getText() + " er blevet opdateret");
-			product.setName(varenavntxt.getText());
-			product.setAmount(mængdetxt.getText());
+		// Udfyldt korrekt
+		else if (!productnametxt.getText().isEmpty()) {
+			menu.statuslbl.setText(productnametxt.getText() + " er blevet opdateret");
+			menu.statuslbl1.setText(productnametxt.getText() + " er blevet opdateret");
+			product.setName(productnametxt.getText());
+			product.setAmount(amounttxt.getText());
 			product.setNote(notetxt.getText());
 			productController.updateProduct(product);
 			menu.tbvOverview.refresh();
