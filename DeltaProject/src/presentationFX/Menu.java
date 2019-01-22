@@ -43,21 +43,21 @@ public class Menu {
 			DatabaseConnection.newConnection("JanProjectDB"));
 
 	public void start(Stage stage) {
-
 		stage.setTitle("Januar Projekt");
 		stage.setWidth(1500);
 		stage.setHeight(550);
 
+		// Borderpane start og top. Start er baggrunden og top er plaseret i top pane
 		BorderPane borderPaneStart = new BorderPane();
 		start = new Scene(borderPaneStart);
 		borderPaneStart.setPadding(new Insets(0, 0, 0, 20));
 		borderPaneStart.setStyle("-fx-background-color: lightgray");
+		BorderPane topPane = new BorderPane();
+		
+		// gridpane placeres i højre side af borderpane
 		GridPane gridRight = new GridPane();
-
 		gridRight.setPadding(new Insets(0, 10, 10, 10));
 		gridRight.setVgap(10);
-
-		BorderPane topPane = new BorderPane();
 
 		// vores søgefelt
 		TextField textSearch = new TextField();
@@ -107,8 +107,10 @@ public class Menu {
 		TableColumn noteCol = new TableColumn("Note");
 		TableColumn amountCol = new TableColumn("Mængde");
 
+		// indsættelse af værdier i tabellen
 		nameCol.setText("Navn");
 		nameCol.setCellValueFactory(new PropertyValueFactory("name"));
+		
 		purchaseCol.setCellValueFactory(e -> {
 			Product product = e.getValue();
 			return new SimpleStringProperty(
@@ -134,12 +136,13 @@ public class Menu {
 
 		noteCol.setText("Note");
 		noteCol.setCellValueFactory(new PropertyValueFactory("note"));
+		
 		amountCol.setText("Mængde");
 		amountCol.setCellValueFactory(new PropertyValueFactory("amount"));
 		daysLeftCol.setMinWidth(50);
 		daysLeftCol.setMaxWidth(50);
 
-		tbvOverview.getColumns().addAll(nameCol, purchaseCol, expirationCol, daysLeftCol, typeCol, noteCol, amountCol);
+		tbvOverview.getColumns().addAll(nameCol, purchaseCol, expirationCol, daysLeftCol, typeCol, amountCol, noteCol);
 
 		productList = FXCollections.observableList(productController.getAllProducts());
 		tbvOverview.setItems(productList);
@@ -209,8 +212,8 @@ public class Menu {
 			alert.setContentText(
 					product.getName() + " - mængde: " + product.getAmount() + " - note: " + product.getNote());
 			ButtonType buttonTypeOkay = new ButtonType("OK", ButtonData.OK_DONE);
-			ButtonType buttonTypeAnnuller = new ButtonType("Annuller", ButtonData.CANCEL_CLOSE);
-			alert.getButtonTypes().setAll(buttonTypeAnnuller, buttonTypeOkay);
+			ButtonType buttonTypeCancel = new ButtonType("Annuller", ButtonData.CANCEL_CLOSE);
+			alert.getButtonTypes().setAll(buttonTypeCancel, buttonTypeOkay);
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOkay) {
 				statuslbl.setText(product.getName() + " er blevet slettet");
@@ -224,7 +227,7 @@ public class Menu {
 			}
 
 		} else {
-			// Nothing selected.
+			// Intet markeret.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Ingen vare markeret");
 			alert.setHeaderText("Ingen vare markeret");
