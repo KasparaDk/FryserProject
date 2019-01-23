@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -185,6 +186,14 @@ public class Menu {
 		sortedData.comparatorProperty().bind(tbvOverview.comparatorProperty());
 		// Tilføjer sorteret og filtreret data til vores TableView
 		tbvOverview.setItems(sortedData);
+		
+		start.setOnKeyPressed(e -> {
+		    if (e.getCode() == KeyCode.DELETE) {
+		        System.out.println("A key was pressed");
+		        DeleteRow();
+		        
+		    }
+		});
 
 		// samling på det hele
 		borderPaneStart.setCenter(tbvOverview);
