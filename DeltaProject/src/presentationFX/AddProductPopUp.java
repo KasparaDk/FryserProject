@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -33,6 +34,7 @@ public class AddProductPopUp {
 	private Label productNameEmpty = new Label("*");
 	private Label cmbEmpty = new Label("*");
 	private Menu menu;
+	private Scene popUpScene;
 
 	public void start(Stage stage, Menu menu) {
 		// Selve vinduet sættes op
@@ -56,6 +58,9 @@ public class AddProductPopUp {
 		cancel.setOnAction(e -> {
 			popUp.hide();
 		});
+		
+
+		
 
 		// BorderPane til knapperne
 		BorderPane buttonPane = new BorderPane();
@@ -148,15 +153,21 @@ public class AddProductPopUp {
 		// Layout laves og sættes som mainscene
 		BorderPane layout = new BorderPane();
 		layout.setPadding(new Insets(20, 20, 10, 20));
-		Scene scene = new Scene(layout);
+		popUpScene = new Scene(layout);
 
 		// Knapper til højre, columns i center
 		layout.setBottom(buttonPane);
 		layout.setCenter(centerPane);
 
-		popUp.setScene(scene);
+		popUp.setScene(popUpScene);
 		popUp.show();
 
+		popUpScene.setOnKeyReleased(e -> {
+		if (e.getCode() == KeyCode.ESCAPE) {
+			popUp.hide();
+		}
+	});
+		
 	}
 
 	private void addProduct() {

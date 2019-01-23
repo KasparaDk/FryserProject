@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -30,7 +31,7 @@ public class UpdateProductPopUp {
 	private TextField producttypetxt;
 	private Label productnameEmpty = new Label("*");
 	private Menu menu;
-
+	private Scene popUpScene;
 
 	public void start(Stage stage, Menu menu, Product product) {
 		// Selve vinduet sættes op
@@ -70,6 +71,7 @@ public class UpdateProductPopUp {
 		productnametxt = new TextField();
 		productnametxt.setMaxWidth(180);
 		productnametxt.setText(product.getName());
+		productnametxt.isFocused();
 		menu.addTextLimiter(productnametxt, 20);
 		
 		// Varetype - uneditable
@@ -143,15 +145,21 @@ public class UpdateProductPopUp {
 
 		BorderPane layout = new BorderPane();
 		layout.setPadding(new Insets(20, 20, 10, 20));
-		Scene scene = new Scene(layout);
+		popUpScene = new Scene(layout);
 
 		// Knapper til højre, columns i center
 		layout.setBottom(buttonPane);
 		layout.setCenter(centerPane);
 
-		popUp.setScene(scene);
+		popUp.setScene(popUpScene);
 		popUp.show();
 
+		popUpScene.setOnKeyReleased(e -> {
+		if (e.getCode() == KeyCode.ESCAPE) {
+			popUp.hide();
+		}
+	});
+		
 	}
 
 	private void updateProduct(Menu menu, Product product) {
