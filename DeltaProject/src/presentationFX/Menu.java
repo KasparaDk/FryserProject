@@ -189,7 +189,6 @@ public class Menu {
 		
 		start.setOnKeyPressed(e -> {
 		    if (e.getCode() == KeyCode.DELETE) {
-		        System.out.println("A key was pressed");
 		        DeleteRow();
 		        
 		    }
