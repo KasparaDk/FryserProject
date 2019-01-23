@@ -137,8 +137,22 @@ public class Menu {
 		
 		amountCol.setText("Mængde");
 		amountCol.setCellValueFactory(new PropertyValueFactory("amount"));
+		
+		// Størelse på rækkerne
+		nameCol.setMinWidth(125);
+		nameCol.setMaxWidth(250);
+		purchaseCol.setMinWidth(125);
+		purchaseCol.setMaxWidth(250);
+		expirationCol.setMinWidth(125);
+		expirationCol.setMaxWidth(250);
 		daysLeftCol.setMinWidth(50);
-		daysLeftCol.setMaxWidth(50);
+		daysLeftCol.setMaxWidth(250);
+		typeCol.setMinWidth(125);
+		typeCol.setMaxWidth(250);
+		amountCol.setMinWidth(125);
+		amountCol.setMaxWidth(250);
+		noteCol.setMinWidth(125);
+		noteCol.setMaxWidth(250);
 
 		tbvOverview.getColumns().addAll(nameCol, purchaseCol, expirationCol, daysLeftCol, typeCol, amountCol, noteCol);
 
@@ -187,7 +201,7 @@ public class Menu {
 		// Tilføjer sorteret og filtreret data til vores TableView
 		tbvOverview.setItems(sortedData);
 		
-		start.setOnKeyPressed(e -> {
+		start.setOnKeyReleased(e -> {
 		    if (e.getCode() == KeyCode.DELETE) {
 		        DeleteRow();
 		        
