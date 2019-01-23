@@ -138,7 +138,7 @@ public class Menu {
 		amountCol.setText("Mængde");
 		amountCol.setCellValueFactory(new PropertyValueFactory("amount"));
 		
-		// Størelse på rækkerne
+		// Størelse på rækkerne.
 		nameCol.setMinWidth(125);
 		nameCol.setMaxWidth(250);
 		purchaseCol.setMinWidth(125);
