@@ -209,7 +209,7 @@ public class Menu {
 	private void DeleteRow() {
 		int selectedIndex = tbvOverview.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
-			Product product = (Product) tbvOverview.getItems().get(selectedIndex);
+			Product product = (Product) tbvOverview.getSelectionModel().getSelectedItem();
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Slet");
 			alert.setHeaderText("Er du sikker på at du vil slette denne vare?");
@@ -222,7 +222,7 @@ public class Menu {
 			if (result.get() == buttonTypeOkay) {
 				statuslbl.setText(product.getName() + " er blevet slettet");
 				statuslbl1.setText(product.getName() + " er blevet slettet");
-				productList.remove(selectedIndex);
+				productList.remove(product);
 				productController.deleteProduct(product);
 
 			}
