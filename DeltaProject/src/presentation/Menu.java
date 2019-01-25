@@ -1,17 +1,11 @@
 package presentation;
 
-import java.io.FileReader;
-import java.util.Properties;
 import java.util.Scanner;
-
-
 
 public class Menu {
 
-
-
 	public void start() {
-		
+
 		try (Scanner sc = new Scanner(System.in)) {
 			showMenu();
 			String menuChoice = sc.nextLine();
@@ -19,7 +13,6 @@ public class Menu {
 				processMenuChoice(menuChoice, sc);
 				showMenu();
 				menuChoice = sc.nextLine();
-				
 			}
 		}
 	}
