@@ -1,2 +1,2 @@
-email=DinFryserStatus@gmail.com
-password=Delta-Gruppe4
+email="Skriv Email Her"
+password="Skriv koden her"
