@@ -1,7 +1,10 @@
 package presentationFX;
 
+import java.io.FileReader;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,6 +34,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import logic.DatabaseConnection;
+import logic.Mailer;
 import logic.Product;
 import logic.ProductController;
 
@@ -41,6 +45,7 @@ public class Menu {
 	Scene start;
 	Label statuslbl = new Label("");
 	Label statuslbl1 = new Label(statuslbl.getText());
+	private Mailer mailer = new Mailer();
 	public TableView<Product> tbvOverview = new TableView();
 	private ProductController productController = new ProductController(
 			DatabaseConnection.newConnection("JanProjectDB"));
@@ -95,12 +100,17 @@ public class Menu {
 		btnUpdate.setPrefSize(300, 100);
 		btnUpdate.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
 		btnUpdate.setOnAction(e -> updateProduct());
+		
+		Button btnEmail = new Button("Send Email");
+		btnEmail.setPrefSize(300, 100);
+		btnEmail.setFont(Font.font("Calibri", FontWeight.BOLD, 30));
+		btnEmail.setOnAction(e -> sendEmail());
 
 		// vores tableview
 		TableColumn nameCol = new TableColumn("Navn");
-		TableColumn<Product, String> purchaseCol = new TableColumn("Indkøbsdato");
+//		TableColumn<Product, String> purchaseCol = new TableColumn("Indkøbsdato");
 		TableColumn<Product, String> expirationCol = new TableColumn("Udløbsdato");
-		TableColumn<Product, Integer> daysLeftCol = new TableColumn("Dage");
+		TableColumn<Product, Integer> daysLeftCol = new TableColumn("Dage før varen udløber");
 		TableColumn<Product, String> typeCol = new TableColumn("Type");
 		TableColumn noteCol = new TableColumn("Note");
 		TableColumn amountCol = new TableColumn("Mængde");
@@ -109,11 +119,11 @@ public class Menu {
 		nameCol.setText("Navn");
 		nameCol.setCellValueFactory(new PropertyValueFactory("name"));
 		
-		purchaseCol.setCellValueFactory(e -> {
-			Product product = e.getValue();
-			return new SimpleStringProperty(
-					product.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
-		});
+//		purchaseCol.setCellValueFactory(e -> {
+//			Product product = e.getValue();
+//			return new SimpleStringProperty(
+//					product.getPurchaseDate().format(DateTimeFormatter.ofPattern("dd MMMM - yyyy")));
+//		});
 		expirationCol.setCellValueFactory(e -> {
 			Product product = e.getValue();
 
@@ -141,8 +151,8 @@ public class Menu {
 		// Størelse på rækkerne.
 		nameCol.setMinWidth(125);
 		nameCol.setMaxWidth(250);
-		purchaseCol.setMinWidth(125);
-		purchaseCol.setMaxWidth(250);
+//		purchaseCol.setMinWidth(125);
+//		purchaseCol.setMaxWidth(250);
 		expirationCol.setMinWidth(125);
 		expirationCol.setMaxWidth(250);
 		daysLeftCol.setMinWidth(50);
@@ -154,7 +164,7 @@ public class Menu {
 		noteCol.setMinWidth(125);
 		noteCol.setMaxWidth(250);
 
-		tbvOverview.getColumns().addAll(nameCol, purchaseCol, expirationCol, daysLeftCol, typeCol, amountCol, noteCol);
+		tbvOverview.getColumns().addAll(nameCol, expirationCol, daysLeftCol, typeCol, amountCol, noteCol);
 
 		productList = FXCollections.observableList(productController.getAllProducts());
 		tbvOverview.setItems(productList);
@@ -215,9 +225,35 @@ public class Menu {
 		gridRight.add(btnCreate, 2, 0);
 		gridRight.add(btnRemove, 2, 1);
 		gridRight.add(btnUpdate, 2, 2);
+		gridRight.add(btnEmail, 2, 3);
 
 		stage.setScene(start);
 		stage.show();
+	}
+
+	private void sendEmail() {
+		Properties login = new Properties();
+		try (FileReader reader = new FileReader("login.properties.txt")) {
+			login.load(reader);		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String email = login.getProperty("email");
+		String password = login.getProperty("password");
+		
+		StringBuilder sb = new StringBuilder();
+		List<Product> product2 = productController.getAllProducts();
+		for (Product product : product2) {
+			String foo = product.checkDate();
+			if (foo != null) {
+				sb.append(foo);
+			}
+		}
+		mailer.send(email, password,"kalle-drengen@hotmail.com","Fryser status" , sb.toString() ); {
+			Alert alert = new Alert(AlertType.CONFIRMATION, "Mail sendt", ButtonType.OK);
+			alert.showAndWait();
+		}
 	}
 
 	private void DeleteRow() {

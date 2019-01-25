@@ -2,6 +2,7 @@ package logic;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.StringJoiner;
 
 public class Product {
 
@@ -91,29 +92,30 @@ public class Product {
 		return expireDate;
 	}
 
-	public void checkDate() {
+	public String checkDate() {
 
 		LocalDate expireDate = purchaseDate.plusMonths(type.getMonths());
 
 		if (daysBetweenTwoDates() < 0 && LocalDate.now().isAfter(expireDate)) {
-			System.out.println(getName() + " er nu blevet for gamle!"
-					+ "\nDet anbefales at smide det ud, af sundhedsmæssige grunde");
+			return getName() + " er nu blevet for gamle!"
+					+ " Det anbefales at smide det ud, af sundhedsmæssige grunde.\n";
 		}
 
 		// Hvis der er 3 dage eller under før det bliver for gammelt
 		else if (daysBetweenTwoDates() < 3 && LocalDate.now().isAfter(expireDate.minusDays(3))) {
-			System.out.println(getName() + " er rigtig tæt på at blive for gamle!" + "\nDu har nu ca. "
-					+ daysBetweenTwoDates() + " dage før de er ubrugelige");
+			return getName() + " er rigtig tæt på at blive for gamle! Du har nu "
+					+ daysBetweenTwoDates() + " dage før det er for gammelt.\n";
 
 		} else if (daysBetweenTwoDates() < 14 && LocalDate.now().isAfter(expireDate.minusDays(14))) {
-			System.out.println(getName() + " er tæt på at blive for gamle!" + "\nDu har ca. " + daysBetweenTwoDates()
-					+ " dage før de er ubrugelige");
+			return getName() + " er tæt på at blive for gamle! Du har " + daysBetweenTwoDates()
+					+ " dage før det er for gammelt.\n";
 
-		} else if (daysBetweenTwoDates() < 30 && LocalDate.now().isAfter(expireDate.minusDays(30))) {
-			System.out.println(getName() + " er ved at blive for gamle!" + "\nDu har ca. " + daysBetweenTwoDates()
-					+ " dage før de er ubrugelige");
+//		} else if (daysBetweenTwoDates() < 30 && LocalDate.now().isAfter(expireDate.minusDays(30))) {
+//			return getName() + " er ved at blive for gamle! Du har " + daysBetweenTwoDates()
+//					+ " dage før det er for gammelt.\n";
 
 		}
+		return null;
 
 	}
 

@@ -1,5 +1,7 @@
 package presentation;
 
+import java.io.FileReader;
+import java.util.Properties;
 import java.util.Scanner;
 
 
@@ -17,6 +19,7 @@ public class Menu {
 				processMenuChoice(menuChoice, sc);
 				showMenu();
 				menuChoice = sc.nextLine();
+				
 			}
 		}
 	}
@@ -75,6 +78,11 @@ public class Menu {
 			System.out.println("Days between");
 			TestProduct testProduct7 = new TestProduct();
 			testProduct7.daysBetween();
+			break;
+		case "9":
+			System.out.println("Mail");
+			TestProduct testProduct8 = new TestProduct();
+			testProduct8.mail();
 			break;
 		case "x":
 			System.out.println("  x: Afslut");
