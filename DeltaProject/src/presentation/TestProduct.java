@@ -24,7 +24,7 @@ public class TestProduct {
 	Product test8 = new Product(0, "Broccoli", LocalDate.of(2019, 1, 10), "500g", ProductType.BROCCOLI, "I toppen til venster");
 	Product test9 = new Product(0, "Mail test 1", LocalDate.of(2019, 1, 22), "mail test 1", ProductType.BACON, "Mail test 1");
 	Product test10 = new Product(0, "Mail test 2", LocalDate.of(2019, 1, 12), "mail test 2", ProductType.BACON, "Mail test 2");
-	Product test11 = new Product(0, "Mail test 3", LocalDate.of(2018, 12, 28), "mail test 3", ProductType.BACON, "Mail test 3");
+//	Product test11 = new Product(0, "Mail test 3", LocalDate.of(2018, 12, 28), "mail test 3", ProductType.BACON, "Mail test 3");
 //	Product testupdate = new Product(2, "opdater", "01/01/2020", "opdater", ProductType.BEEF, "opdater");
 	
 
@@ -46,7 +46,7 @@ public class TestProduct {
 		productController.addProduct(test8);
 		productController.addProduct(test9);
 		productController.addProduct(test10);
-		productController.addProduct(test11);
+//		productController.addProduct(test11);
 		
 //		productController.addProduct(test);
 //		productController.addProduct(test2);
