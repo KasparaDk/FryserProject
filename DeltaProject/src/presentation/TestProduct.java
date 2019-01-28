@@ -48,33 +48,33 @@ public class TestProduct {
 		productController.addProduct(test10);
 		productController.addProduct(test11);
 		
-//		productController.addProduct(test);
-//		productController.addProduct(test2);
-//		productController.addProduct(test3);
-//		productController.addProduct(test4);
-//		productController.addProduct(test5);
-//		productController.addProduct(test7);
-//		
-//		productController.addProduct(test);
-//		productController.addProduct(test2);
-//		productController.addProduct(test3);
-//		productController.addProduct(test4);
-//		productController.addProduct(test5);
-//		productController.addProduct(test7);
-//		
-//		productController.addProduct(test);
-//		productController.addProduct(test2);
-//		productController.addProduct(test3);
-//		productController.addProduct(test4);
-//		productController.addProduct(test5);
-//		productController.addProduct(test7);
-//		
-//		productController.addProduct(test);
-//		productController.addProduct(test2);
-//		productController.addProduct(test3);
-//		productController.addProduct(test4);
-//		productController.addProduct(test5);
-//		productController.addProduct(test7);
+		productController.addProduct(test);
+		productController.addProduct(test2);
+		productController.addProduct(test3);
+		productController.addProduct(test4);
+		productController.addProduct(test5);
+		productController.addProduct(test7);
+		
+		productController.addProduct(test);
+		productController.addProduct(test2);
+		productController.addProduct(test3);
+		productController.addProduct(test4);
+		productController.addProduct(test5);
+		productController.addProduct(test7);
+		
+		productController.addProduct(test);
+		productController.addProduct(test2);
+		productController.addProduct(test3);
+		productController.addProduct(test4);
+		productController.addProduct(test5);
+		productController.addProduct(test7);
+		
+		productController.addProduct(test);
+		productController.addProduct(test2);
+		productController.addProduct(test3);
+		productController.addProduct(test4);
+		productController.addProduct(test5);
+		productController.addProduct(test7);
 	}
 	public void getAll() {
 		List<Product> product2 = productController.getAllProducts();
